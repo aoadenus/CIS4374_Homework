@@ -219,8 +219,6 @@ Steps:
 
 Postcondition: The driver can view past parking activity and download a receipt for the selected transaction.
 
-# Category B: Parking Facility Operator and Administrative Management
-
 ## UC-09: Configure Facility and Parking Inventory
 
 - Actor: Parking Facility Operator
@@ -307,8 +305,6 @@ Steps:
 7. The system records the administrative change.
 
 Postcondition: The user's access permissions and account status reflect the approved administrative changes.
-
-# Category C: Automated System Processes
 
 ## UC-14: Expire Unused Reservation and Release Inventory
 

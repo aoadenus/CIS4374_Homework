@@ -364,7 +364,6 @@ Navigate to Parking Facility (Use Case 5) will be used as the one story point ba
 
 ### 6.2 Three-Level Work Breakdown Structure
 
-```text
 1.0 Smart Parking Platform
 
 1.1 Driver Account and Access
@@ -393,7 +392,7 @@ Navigate to Parking Facility (Use Case 5) will be used as the one story point ba
 1.6 Automated Platform Services
     1.6.1 Expire Unused Reservations and Release Inventory (UC-14) [5 SP]
     1.6.2 Send Parking Expiration Warning (UC-15) [3 SP]
-```
+
 
 ### 6.3 Story Point Estimation
 

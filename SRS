@@ -1,7 +1,7 @@
 Software Requirements Specification (SRS)
-Project: Smart Parking Platform SRS
-Version: 1.0
-Date: 09.09.2026
+Project: Smart Parking Platform
+Version: 1.1
+Date: 09.17.2026
 
 1. Introduction
 
@@ -340,3 +340,17 @@ Steps:
 
 Postcondition: The driver receives a warning that the parking session is approaching expiration and can return to the application to extend the session when permitted.
 #
+
+6. Work Breakdown Structure, Agile Estimation, and Project Schedule
+
+6.1 Estimation Approach
+
+6.2 Three-Level Work Breakdown Structure
+
+6.3 Story Point Estimation
+
+6.4 Project Schedule and Task Dependencies
+
+6.5 Project Milestones
+
+6.6 Gantt Chart

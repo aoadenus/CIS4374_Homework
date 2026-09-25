@@ -473,7 +473,8 @@ Figure 1. Smart Parking Platform Draft Project Schedule and Task Dependencies.
 | 10/11/2026 | Operator and Automated Services Completed       |
 | 12/04/2026 | Final Smart Parking Platform Delivery           |
 
-7.2 Sprint 1 Planning
+## 7.2 Sprint 1 Planning
+
 For Sprint 1, I selected 13 stories totaling 49 story points. I named the sprint Sprint 1 — Smart Parking Foundation because I wanted to focus on the main features that a driver would need to get started with the platform. My sprint goal is to deliver the foundation for account access, garage search, reservation hold, payment processing, and QR pass generation.
 
 I selected 4 Login & Authentication stories worth 14 points, 5 UI stories worth 17 points, and 4 Backend stories worth 18 points. I prioritized these stories because they support each other. For example, a driver needs to create an account and find a garage before making a reservation. The platform also needs to hold the parking capacity during checkout, process the payment, and generate a QR pass after the reservation is confirmed.

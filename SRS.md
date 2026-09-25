@@ -472,3 +472,25 @@ Figure 1. Smart Parking Platform Draft Project Schedule and Task Dependencies.
 | 10/08/2026 | Payment and Parking Entry Integration Completed |
 | 10/11/2026 | Operator and Automated Services Completed       |
 | 12/04/2026 | Final Smart Parking Platform Delivery           |
+
+7.2 Sprint 1 Planning
+For Sprint 1, I selected 13 stories totaling 49 story points. I named the sprint Sprint 1 — Smart Parking Foundation because I wanted to focus on the main features that a driver would need to get started with the platform. My sprint goal is to deliver the foundation for account access, garage search, reservation hold, payment processing, and QR pass generation.
+
+I selected 4 Login & Authentication stories worth 14 points, 5 UI stories worth 17 points, and 4 Backend stories worth 18 points. I prioritized these stories because they support each other. For example, a driver needs to create an account and find a garage before making a reservation. The platform also needs to hold the parking capacity during checkout, process the payment, and generate a QR pass after the reservation is confirmed.
+I also considered the dependencies from my earlier project planning. For the initial garage map and detail cards, I would use sample facility data because the full operator facility setup is still in the remaining backlog. This allows me to plan the driver experience first without treating every backend and operator feature as completed.
+Since this is my first sprint, the 49 story points represent my proposed scope, not an established team velocity. I have not started the sprint in Jira because this stage is focused on planning. The remaining 35 stories will stay in the product backlog for future sprint planning, where I can adjust priorities based on what gets completed and what the project needs next.
+
+## 7.3 Jira Backlog and Sprint Evidence
+I created the Scrum project in Jira, added the four epics, and imported all 48 stories. I then assigned each story to its matching epic and moved my 13 selected stories into Sprint 1. My Jira backlog shows the Sprint 1 goal, the 49-point estimate, and the 35 stories remaining in the product backlog.
+
+![Jira Evidence 1](images/Jira_1.png)
+
+![Jira Evidence 2](images/Jira_2.png)
+
+![Jira Evidence 3](images/Jira_3.png)
+
+![Jira Evidence 4](images/Jira_4.png)
+
+![Jira Evidence 5](images/Jira_5.png)
+
+![Jira Evidence 6](images/Jira_6.png)

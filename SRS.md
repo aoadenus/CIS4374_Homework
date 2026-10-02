@@ -2,9 +2,10 @@
 
 Project: Smart Parking Platform
 
-Version: 1.1
+Version: 1.4
 
-Date: 09.17.2026
+Date: 10.01.2026
+
 
 ## 1. Introduction
 
@@ -495,3 +496,231 @@ I created the Scrum project in Jira, added the four epics, and imported all 48 s
 ![Jira Evidence 5](images/Jira_5.png)
 
 ![Jira Evidence 6](images/Jira_6.png)
+
+## 8. Risk, Quality, and Communication Management
+
+In this section I looked at what could go wrong with the Smart Parking Platform, how I would check that everything works, and how we would keep everyone updated. I used a five person team for the communication part and picked some numbers to help measure the quality of the system.
+
+### 8.1 Risk Management Plan and Risk Register
+
+#### 8.1.1 Risk Management Strategy
+
+I dont want to only look at software bugs because this platform relies on more than just the app. If a sensor stops working, a payment doesnt go through or a Houston storm knocks out power, drivers still have a problem. So I looked at technical, operational, schedule, cost and weather risks. For each one I gave it a score, somebody to handle it and a plan. We can come back to the list whenever something changes.
+
+The four responses I would use are:
+
+- Avoidance: Change the plan so we can avoid the risk entirely, for example removing an optional integration that has not been approved.
+- Mitigation: Put something in place to reduce the chance of the problem or how badly it affects us. This could be testing, monitoring or a backup plan.
+- Transfer: Use a contract or insurance for some of the financial risk. We still need to know which parts we are responsible for.
+- Acceptance: Recognize the risk and continue monitoring it. We may still need a fallback even when we decide to accept it.
+
+Stripe is a good example. Even though it handles payments, we still have to make sure our side of the connection is secure. The same goes for cloud services. Having a provider does not automatically take away our responsibility when something goes wrong.
+
+#### 8.1.2 Probability and Impact Matrix
+
+I used a scale of 1 to 5 for how likely each risk is and how much it would affect us. Then multiplied the two numbers:
+
+Risk score = Probability x Impact 
+
+Probability is how likely I think something is to happen. Impact is how much trouble it would cause for the project or for someone trying to park.
+
+| Rating | Probability | Impact |
+| --- | --- | --- |
+| 1 | Rare | Very small issue we can handle as part of the task. |
+| 2 | Unlikely | Minor issue with a simple workaround or small amount of rework. |
+| 3 | Possible | Moderate issue that may require changes to work, schedule or costs. |
+| 4 | Likely | Major issue that could delay a milestone or affect reservations, payments or entry. |
+| 5 | Almost certain | Severe issue such as sensitive data exposure, serious transaction loss or a long disruption. |
+
+I grouped the scores into low (1 to 4), medium (5 to 9), high (10 to 16) and critical (17 to 25). Low is green, medium is yellow and both high and critical are red. I kept the scores in the chart so its still easy to tell them apart.
+
+| Probability / Impact | 1 | 2 | 3 | 4 | 5 |
+| --- | --- | --- | --- | --- | --- |
+| 5 | 5 Medium | 10 High | 15 High | 20 Critical | 25 Critical |
+| 4 | 4 Low | 8 Medium | 12 High | 16 High | 20 Critical |
+| 3 | 3 Low | 6 Medium | 9 Medium | 12 High | 15 High |
+| 2 | 2 Low | 4 Low | 6 Medium | 8 Medium | 10 High |
+| 1 | 1 Low | 2 Low | 3 Low | 4 Low | 5 Medium |
+
+A critical risk needs attention right away. High risks should be handled before releasing the part of the system they affect. I would check medium risks each sprint and keep low risks on the list in case they change. Something serious like unauthorized gate access needs to be reported right away, regardless of the score.
+
+#### 8.1.3 Risk Register
+
+I started each one as Open. As work continues, the status can change depending on whether we are working on it, watching it or have fixed the problem.
+
+**RSK-01: Stripe payment outage or uncertain payment result**
+
+- Category: Technical / Financial
+- Probability: 2 | Impact: 5 | Score: 10, High (Red)
+- Owner: Backend / Database Lead | Strategy: Mitigation
+- Risk: Stripe could time out while someone is paying. If we dont know whether the payment went through, we also shouldnt tell the driver their parking is confirmed (UC-04).
+- Plan: First check the payment status before trying to charge the driver again. If we need to retry, use the same idempotency key so the retry doesnt create a second payment. When Stripe isnt responding, we should stop those checkouts and tell the driver the payment is pending or unavailable. Only give out the QR code after payment is confirmed. If too much time passes, check that parking is still available and refund through the normal process if it isnt.
+
+**RSK-02: Parking sensor information is missing or outdated**
+
+- Category: Technical / Operational
+- Probability: 3 | Impact: 4 | Score: 12, High (Red)
+- Owner: Integration Lead | Strategy: Mitigation
+- Risk: The sensor could stop sending information and the app may still show a parking space as open when it really isnt (FR4, NFR5, NFR12).
+- Plan: Keep track of the last sensor update and try reconnecting if it stops. I would flag information that hasnt updated in 60 seconds. Until we can confirm a space is actually available, dont let drivers reserve it. The garage could provide a confirmed update when needed. Then compare the records before letting reservations start again, because just counting cars coming through the gate wont tell us which spaces are free.
+
+**RSK-03: Two drivers reserve the same parking capacity**
+
+- Category: Technical / Data
+- Probability: 3 | Impact: 4 | Score: 12, High (Red)
+- Owner: Backend / Database Lead | Strategy: Mitigation
+- Risk: Two drivers could try to book the last available space at the same time, and both might end up thinking its theirs (FR6, NFR5, UC-03).
+- Plan: The system needs to check availability and hold the space together, not as two separate steps where someone else could book between them. I would start with a five minute checkout hold and test what happens when multiple people book at once, refresh or retry. If the system finds two reservations for the same capacity, stop those reservations and check the database records. We should only free a hold after confirming it expired. A Redis lock might help, but the database still needs to enforce the limit.
+
+**RSK-04: QR scanner or garage gate does not respond**
+
+- Category: Operational / Integration
+- Probability: 2 | Impact: 4 | Score: 8, Medium (Yellow)
+- Owner: Integration Lead | Strategy: Mitigation
+- Risk: A driver paid for parking and has a valid QR code, but the scanner wont read it or the gate doesnt open (UC-06).
+- Plan: Test normal QR codes, expired codes, incorrect codes and someone scanning the same code twice. If the gate doesnt open but the app and gate controller still work, an authorized attendant can use the manual override. We need to save who opened it, when, which vehicle and why (FR20). If the gate itself is broken or offline, the garage would use its own procedure.
+
+**RSK-05: Expiration notification is not delivered**
+
+- Category: Operational
+- Probability: 3 | Impact: 2 | Score: 6, Medium (Yellow)
+- Owner: Mobile / Web Lead | Strategy: Mitigation, with remaining delivery risk accepted
+- Risk: A drivers warning about their parking time might not reach their phone (FR23, UC-15).
+- Plan: Record whether Apple or Firebase accepted the notification and retry failed alerts while there is still time. Drivers should also see their end time when they open the app. We could look at text messages later, but that would add cost and require consent. Sending a notification doesnt always mean somebody saw it.
+
+**RSK-06: Houston weather causes a local power or internet outage**
+
+- Category: Environmental / Operational
+- Probability: 2 | Impact: 5 | Score: 10, High (Red)
+- Owner: QA / Operations Lead | Strategy: Mitigation
+- Risk: Severe weather can affect garage power, connections, sensors and entry operations.
+- Plan: Watch for garages losing their connection. If a garage loses power or internet, stop new bookings there and let drivers know. Once service comes back, compare the parking and payment records before everything returns to normal. The garage would handle the gate and other physical problems using its own outage procedure.
+
+**RSK-07: A developer is unavailable during Sprint 1**
+
+- Category: Schedule / Resource
+- Probability: 3 | Impact: 3 | Score: 9, Medium (Yellow)
+- Owner: Project Manager | Strategy: Mitigation
+- Risk: One missing team member could hold up several tasks that depend on their work.
+- Plan: I would keep the notes and Jira tasks updated so somebody else can pick up work if needed. For important tasks, more than one person should understand what is going on. If someone is out, we can move the work around and decide which lower priority stories can wait. After that, update our sprint estimates.
+
+**RSK-08: Cloud services and integrations cost more than expected**
+
+- Category: Financial / Scope
+- Probability: 3 | Impact: 3 | Score: 9, Medium (Yellow)
+- Owner: Project Manager | Strategy: Mitigation / Avoidance
+- Risk: Cloud resources, maps, messages or extra reliability features could push costs beyond the approved budget.
+- Plan: Keep an eye on how much the cloud services, maps and messages are costing us. We should turn off testing resources we arent using and put optional features on hold if the costs get too high. Any extra spending would need to be checked against the budget before changing the plan.
+
+**RSK-09: Unauthorized use of administrative access or gate overrides**
+
+- Category: Security / Operational
+- Probability: 2 | Impact: 5 | Score: 10, High (Red)
+- Owner: Backend / Database Lead | Strategy: Mitigation
+- Risk: An unauthorized person accesses administrator features or uses the manual gate override (NFR2, NFR13, UC-12, UC-13).
+- Plan: Check permissions on the server, not just by hiding a button in the app. Protect login information and keep a record of administrative actions. If someone tries to use a feature they shouldnt have access to, or we see an unusual gate override, limit access and investigate. Keep the logs so we can see what happened, then test the fix before allowing access again.
+
+I would go back through the risks every week and at the end of each sprint. If one of these things actually happens, it becomes an issue we need to work on, not just something sitting on the risk list.
+
+### 8.2 Quality Management Plan
+
+#### 8.2.1 Quality Assurance
+
+Quality assurance is about trying to prevent problems while we build the platform. Before starting a Jira story, I want us to know what needs to be done for it to count as complete. Someone else should review code before it gets added to the main branch. Testing and documentation should be part of finishing a task, not things we remember at the very end.
+
+Pull requests should run automatic checks too. For database changes, test them in staging first and have a way to undo the change if it causes problems. That is how I see qa, trying to catch mistakes in the process. Quality control is more about checking the actual results.
+
+#### 8.2.2 Quality Control
+
+For quality control, I would go through the features in the SRS and see if they work the way we described. My main tests would be:
+
+1. Driver process: Start with someone making an account, finding parking, reserving, paying and getting their QR code. Then test whether the code lets them check in. This covers the payment in UC-04 and entry in UC-06.
+2. Payment and reservation problems: Have multiple people try to reserve at once. Test expired holds, payment retries, duplicated responses and payments we cant immediately confirm. The number of spaces, reservations and payments should all match.
+3. Sensors, gates and permissions: Try disconnecting the sensors, sending different gate responses and having users open features outside their role. Check whether the logs record the right information. A simulator can help before we have access to the actual equipment.
+4. Speed: Have lots of users search for parking at once. Record how many were using the system, how long the test lasted, how fast the searches were and whether any failed.
+
+#### 8.2.3 Quality Targets
+
+I picked a few numbers so we can tell whether the system is meeting the quality goals, instead of just saying it should be fast or reliable.
+
+**Availability (NFR18)**
+
+- Goal: 99.99% availability when participating garages are supposed to be supported.
+- Calculation: (Supported minutes - Unavailable minutes) / Supported minutes x 100.
+- Check the main system functions and downtime records each month, including planned and unplanned outages during operating hours.
+- For a system running all day, that is about 4.32 minutes down in a 30 day month or 52.56 minutes in a year.
+- Responsible: qa and operations lead.
+
+**Map search performance (FR3-FR4)**
+
+- Goal: With 1,000 people searching at once for 15 minutes, at least 95% of searches should finish in under 2 seconds and fewer than 1% should fail.
+- Start timing when someone searches and stop when the results show on the map. Record the test conditions too.
+- Check before release and after major changes. Responsible: qa and operations lead.
+
+**Payment data protection (NFR6-NFR7)**
+
+- Goal: Dont save full card numbers or security codes in the database or logs. Use Stripe payment references and a secure HTTPS connection.
+- Before release, check what the app saves and what shows up in logs. Review the payment security requirements too.
+- Responsible: backend and database lead.
+
+**Reservation and payment integrity (FR6-FR8, NFR5)**
+
+- Goal: Run 10,000 checkout attempts with up to 100 at the same time and look for double bookings, duplicate charges and repeated QR passes. The goal is zero.
+- Include expired holds, retries and timeouts, then compare the payment records to the reservations.
+- Responsible: backend and database lead. If we find an issue, we should fix it and run the tests again.
+
+**Gate authorization and audit records (FR19-FR20, NFR2, NFR13)**
+
+- Goal: Block every test where someone without permission tries to open the gate. For every approved override, save who did it, when, the vehicle and the reason.
+- Test with people who should have access and people who shouldnt, including after any role changes.
+- Responsible: integration lead.
+
+**Parking expiration warning (FR23, UC-15)**
+
+- Goal: Send the warning 15 minutes before parking expires, and get it to the notification service within 60 seconds of that point.
+- Test the alerts before each release, including what happens when the provider is down. Keep track of accepted and rejected alerts and whether they reached a device.
+- Responsible: mobile and web lead.
+
+Before we release anything, I would make sure the required tests pass and we save the results. I wouldnt release a feature that lets the wrong person open a gate, charges a driver incorrectly or gives someone parking they cant actually use. Smaller bugs can be reviewed with the project manager and product owner to decide what gets fixed now.
+
+### 8.3 Communication Management Plan
+
+#### 8.3.1 Communication Paths
+
+I used five people for this example. To find how many ways they can communicate one on one, I used:
+
+Communication paths = N(N - 1) / 2
+
+N = 5
+
+5(5 - 1) / 2 = 10 possible communication paths
+
+That gives us ten possible connections between team members. If the team gets bigger or smaller, I would just redo the calculation.
+
+The roles I used are project manager, backend and database, mobile and web, integrations, and qa and operations. One person could handle more than one area.
+
+#### 8.3.2 Different Updates for Different People
+
+I dont think everyone needs the same update. If Stripe stops taking payments, the sponsor would probably want to know if drivers can still book, if money is being affected and whether our schedule changes. Whoever is fixing it needs the actual error, what failed, and what we have already tried. Its the same problem, but different people need different details. We should write down decisions in Jira or Teams so we arent looking through old messages later.
+
+#### 8.3.3 Communication Schedule
+
+| Activity | When | Channel | Responsible | Audience and purpose |
+| --- | --- | --- | --- | --- |
+| Daily team check-in | Each workday during a sprint, up to 15 minutes | Microsoft Teams and Jira | Project Manager | Quick update on what we finished, what is next and where somebody is stuck. Update Jira afterward. |
+| Sprint planning | Start of each sprint | Microsoft Teams and Jira | Project Manager | Pick the sprint goal, decide what fits and check which tasks depend on others. |
+| Sprint review and retrospective | End of each sprint | Microsoft Teams and Jira | Project Manager | Show what got finished, hear feedback and talk about what to improve next sprint. |
+| Weekly stakeholder report | Weekly | Microsoft Teams | Project Manager | Let the sponsor and facility contacts know how the schedule, costs and major problems are looking. Include decisions and due dates. |
+| Risk and quality review | Weekly and before each release | Microsoft Teams, Jira and GitHub | QA / Operations Lead | Check open risks, bugs and test results with the project manager. |
+| Technical decisions and code reviews | With each proposed change | GitHub pull requests or discussions, linked to Jira | Relevant technical lead | Leave comments, test results and the reason for changes where the team can find them. |
+| Urgent escalation | Immediately when detected | Microsoft Teams call or alert, plus an issue record | Risk owner and PM | Call the people handling it, explain what we know, who is working on it and when the next update is coming. Aim for a response within 15 minutes during coverage. |
+| Weekly course update | According to the assignment deadline | MS Teams recording, share link through Canvas | Student / Project Manager | Share a 1 to 2 minute camera on recording explaining the new section for the instructor. |
+
+
+### 8.4 References
+
+- [Stripe - Integration security guide](https://docs.stripe.com/security/guide): Information on payment security and shared PCI responsibilities.
+- [Stripe - Idempotent requests](https://docs.stripe.com/api/idempotent_requests): Guidance for safely retrying the same payment operation.
+- [AWS - Amazon Compute Service Level Agreement](https://aws.amazon.com/compute/sla/): Cloud uptime and service credit terms.
+
+

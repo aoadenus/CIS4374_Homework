@@ -1,58 +1,71 @@
-AI Use Disclosure Log
+# AI Use Documentation
+**Project:** Smart Parking Platform  
+**Course:** CIS 4374 – Project Management  
+**Document Version:** 1.5  
+**Date:** October 8, 2026  
+**AI Tool:** ChatGPT (OpenAI)
 
-Student: Adetutu Adenusi
-Course: CIS 4374 - Information Systems Project Management
-Project: Smart Parking Platform
-Assignment: Homework 2
-Tools Used: ChatGPT and Claude Code
+## 1. What Tool Was Used
 
-1. What AI Was Used For
+ChatGPT (OpenAI) was used to assist with reviewing and planning the Resource Allocation and Cost Management section of the Smart Parking Platform project.
 
-I used ChatGPT to help me think through and review Homework 2. This included the 3 level WBS, Fibonacci story points, task dependencies, and milestones. I also asked for step by step instructions for making a Gantt chart in Excel and a review of whether my chart matched my schedule.
+## 2. What It Was Used For
 
-I used Claude Code to finalize the Markdown formatting and embed my completed Gantt chart under Section 6.6 using images/GANTT_HW2.png.
+I used ChatGPT to help organize the responsibilities of our six project team members into a RACI matrix, review a bottom-up labor cost estimate, compare non-labor expenses, and understand how to establish an Earned Value Management (EVM) baseline.
 
-ChatGPT also helped me put this AI use file together.
+I also used it to compare its suggested cost estimates against the estimates I had already developed in Section 9.3. The purpose was to check the calculations, identify missing assumptions, and make sure the financial planning remained consistent with the existing project scope and schedule.
 
-2. Prompts Used
+## 3. Prompts Used
 
-ChatGPT
+**Prompt 1 — RACI, Cost Estimation, and EVM Planning**
 
-Planning:
+"I'm working on a project for a software team building a driver mobile app. There are 6 roles on the team, and we're delivering the mobile app, the backend APIs, Stripe tokenization for payments, and an IoT hardware integration. Can you help me set up a RACI matrix for this?"
 
-I'm working on Homework 2 for my Smart Parking Platform project. Using my SRS and use cases as the source of truth, can you help me think through the plan I need for this? I want to figure out a 3 level WBS structure, compare Level 3 tasks using thr Fibonaci story points, think abt task dependencies, and identify project milestones. Don't write the final assignment, just explain the reasoning behind  suggestions.
+"Next, can you help me put together a bottom-up cost estimate for the team's labor? I also need a separate budget for the non-labor costs like cloud hosting, API usage tiers, and a contingency reserve."
 
-Excel instructions:
+"Last thing: I need to set up an EVM baseline to track this project. Can you help me figure out the BAC, the cumulative planned value at each milestone, and what SPI and CPI thresholds I should use to tell if we're on track or falling behind?"
 
-Give me step by step instructions to create a Gantt Chart in Excel
+**Prompt 2 — Team Roles**
 
-Review:
+I provided the following team information:
 
-Check if my WBS is within three levels, and if my story point estimates is reasonable relative to my baseline, and if my dependencies agrees with the use-case preconditions, and if my milestones makes sense, and if my Gantt chart matches the schedule .
+| Team Member | Project Role |
+|---|---|
+| Alice Morgan | Project Manager |
+| Bob Carter | Lead Solutions Architect |
+| Carol Reed | Senior Backend Developer |
+| Dan Brooks | Lead Mobile Developer |
+| Frank Ellis | Hardware & IoT Integration Specialist |
+| Grace Bennett | QA & Security Engineer |
 
-AI use file:
+I also provided their primary responsibilities and the existing Smart Parking Platform SRS, Version 1.5, for project context.
 
-Now Create AI use file for homework 2, make is simple, and in my voice, and dictions, use the ai use template and fill it out and then this is my claude code prompt used to finalize my project: Open my existing Smart Parking Platform Markdown file and make formatting changes only. Preserve the existing WBS hierarchy and all wording. Also embed my Gantt chart image using a relative repository path. The image will be stored as images/GANTT_HW2.png. Place the image under Section 6.6 Gantt Chart.ChatGPT: planning/reasoning and review of Homework 2.
-Claude Code: Markdown formatting and technical embedding of the completed Gantt
+**Prompt 3 — Cost Estimate Comparison**
 
-Claude Code
+"compare 9.3:"
 
-Open my existing Smart Parking Platform Markdown file and make formatting changes only. Preserve the existing WBS hierarchy and all wording. Also embed my Gantt chart image using a relative repository path. The image will be stored as images/GANTT_HW2.png. Place the image under Section 6.6 Gantt Chart.
+I then provided my existing Section 9.3, including the resource estimation methodology, labor cost breakdown, non-labor infrastructure expenses, and contingency reserve calculations.
 
-3. What I Kept
+## 4. What I Kept vs. What I Changed
 
-ChatGPT's explanations for comparing tasks, checking dependencies, and choosing milestones based on my existing project.
+**RACI Matrix**
 
-The Excel Gantt chart instructions and review feedback.
+I used ChatGPT's suggested RACI structure as a starting point for organizing responsibilities. The matrix helped distinguish who would perform the work, who would be accountable, and who needed to be consulted or informed. I kept the six roles already defined in my project rather than adding another team member.
 
-Claude Code's Markdown formatting and the relative image link for my completed Gantt chart.
+**Labor Cost Estimates**
 
-Help creating the AI use file.
+ChatGPT initially suggested a labor estimate of $96,400 based on 1,620 hours. I did not adopt those numbers because my existing resource plan used different assumptions.
 
-4. What I Changed or Limited
+I kept my original estimate of **940 labor hours and $58,400**, distributed across the six team members. ChatGPT helped compare the two estimates and identify areas where the allocation of work should be justified more clearly.
 
-I used my existing SRS and use cases as the basis for the planning. I asked ChatGPT to explain its suggestions so I could decide what fit my project. I limited Claude Code to formatting and image placement, with my existing WBS hierarchy and wording preserved.
+**Non-Labor Costs and Contingency**
 
-5. Human Verification
+ChatGPT initially suggested $14,000 in non-labor costs and a $2,100 contingency reserve. I retained my existing infrastructure and external-service estimate of **$4,000**, along with a **12% contingency reserve of $7,488**, calculated from the total direct project costs.
 
-The final project decisions are mine, and I have reviewed it my satisafction. I am responsible for checking the estimates, dependencies, milestones, and Gantt dates for m project, and checking that the gannt chart is available.
+This maintained the original proposed project funding amount of **$69,888**.
+
+**Earned Value Management**
+
+I used ChatGPT to review the concepts of Budget at Completion (BAC), Planned Value (PV), Schedule Performance Index (SPI), and Cost Performance Index (CPI).
+
+ChatGPT provided example milestone allocations and suggested performance thresholds. I treated these as recommendations rather than final project measurements. I retained the five milestones and dates already established in the SRS and identified the need to connect planned value to the actual work-package budget before finalizing the EVM baseline.

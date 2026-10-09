@@ -2,9 +2,9 @@
 
 Project: Smart Parking Platform
 
-Version: 1.4
+Version: 1.5
 
-Date: 10.01.2026
+Date: 10.08.2026
 
 
 ## 1. Introduction
@@ -724,3 +724,223 @@ I dont think everyone needs the same update. If Stripe stops taking payments, th
 - [AWS - Amazon Compute Service Level Agreement](https://aws.amazon.com/compute/sla/): Cloud uptime and service credit terms.
 
 
+# 9. Resource Allocation and Cost Management
+
+
+## 9.1 Resource Management Plan
+
+Developing the Smart Parking Platform will require resources, because the application is not limited to a mobile interface. The system also has to manage parking reservations, process payments, update parking availability, and communicate with external parking equipment. These components have technical requirements, but they also depend on each other.
+
+For this project, $oftware ¢orp. will operate with a 6 member team. Each member is assigned a role based on the work identified in the SRS, the 15 use cases, and the existing Work Breakdown Structure. The goal is to have clear ownership of the work, while still allowing team members to support one another when development tasks overlap. The proposed schedule covers 12 weeks, divided into 3 periods of 4 weeks. Not every team member will be needed for the same number of hours. Some responsibilities are more concentrated during planning, while others increase as the project moves into development and testing. This is considered in the resource allocation and cost estimates.
+
+### 9.1.1 Project Team Composition
+
+| Team Member | Project Role | Primary Responsibilities |
+|---|---|---|
+| Alice Morgan | Project Manager | Project delivery, schedule, budget, risk management, and stakeholder communication |
+| Bob Carter | Lead Solutions Architect | System architecture, database design, API standards, and technical decisions |
+| Carol Reed | Senior Backend Developer | Backend services, parking reservations, inventory processing, Stripe payments, and QR credentials |
+| Dan Brooks | Lead Mobile Developer | Driver mobile application, interactive parking map, reservation screens, and payment interface |
+| Frank Ellis | Hardware & IoT Integration Specialist | Sensor telemetry, QR scanner communication, and gate controller software integration |
+| Grace Bennett | QA & Security Engineer | Software testing, security verification, quality checks, and performance testing |
+
+Alice Morgan is assigned as the Project Manager and will oversee the project's overall progress, making sure development stays within the established schedule and budget. She will also handle stakeholder communication, review project risks, and coordinate with the team when issues come up. If a task is delayed or requires additional resources, Alice will need to determine how that affects the remaining work before making adjustments.
+Bob Carter will serve as the Lead Solutions Architect. His responsibilities include the system architecture, database design, and establishing how the mobile application, backend, and external services will communicate with one another. A lot of the development work depends on these decisions, so the architecture needs to be established early to avoid having to make major changes later in the project.
+Carol Reed is responsible for backend development, which includes managing the reservation process, temporary parking holds, payment verification, and QR credential generation. These functions are closely connected, and an issue with one can affect the others. 
+Dan Brooks will handle the mobile application and the interfaces drivers will use to interact with the platform. This includes account registration, searching for available parking, navigation, and managing reservations. Dan will work closely with Carol because the information displayed in the application needs to match what is actually being processed by the backend. 
+Frank Ellis will be responsible for the hardware and IoT software integration. His work involves connecting the platform to supported parking sensors, QR scanners, and gate controllers, as well as verifying that information is being communicated correctly.Frank's responsibilities are specifically related to the software interfaces and making sure they work with the external hardware.
+Grace Bennett is assigned as the QA and Security Engineer. She will review the application's functionality, identify defects, and conduct security and performance testing throughout development. Testing should not be something the team waits to do at the end, especially with the reservation and payment functions. 
+
+## 9.2 Responsibility Assignment Matrix 
+
+The RACI matrix will be used to identify who is completing each major deliverable and who has final accountability for it. 
+
+- Responsible: Performs the actual work.
+- Accountable: Owns the deliverable and approves completion.
+- Consulted: Provides technical input or feedback.
+- Informed (I): Receives updates on progress or decisions.
+
+
+### 9.2.1 RACI Matrix
+
+| Project Deliverable | Alice (PM) | Bob (Architect) | Carol (Backend) | Dan (Mobile) | Frank (IoT) | Grace (QA) |
+|---|---|---|---|---|---|---|
+| Requirements and SRS | A/R | C | C | C | C | I |
+| System and Database Architecture | I | A/R | R | C | C | C |
+| Driver Mobile Application | I | C | C | A/R | I | C |
+| Reservation and Backend APIs | I | C | A/R | C | C | C |
+| Stripe Payment Integration | I | C | A/R | R | I | C |
+| Parking Sensor and Gate Integration | I | C | R | I | A/R | C |
+| Security Audit and Compliance Review | I | C | R | C | C | A/R |
+| Quality and Performance Testing | I | C | R | R | R | A/R |
+| Deployment and CI/CD | I | A | R | C | C | R |
+
+### 9.2.2 Coordination of Responsibilities
+
+The matrix establishes the ownership, but different deliverables  still depend on work done by other team members. For example, Carol is accountable for the Stripe payment integration however, Dan needs to also work on the mobile payment interface so that drivers can complete checkout and receive confirmation. Grace will need to verify that the payment process handles unsuccessful transactions correctly and does not expose sensitive information.
+
+Another dependency is with parking sensors and gate controllers. Frank is accountable for the software interface with the external equipment, while Carol is responsible for how the backend processes information and updates the parking session. Alice will monitor dependencies through the project schedule and backlog. If one task is delayed, the team will need to determine if the delay affects other work packages before making changes to the schedule.
+
+## 9.3 Resource Cost Estimation
+
+The cost estimates are based on the resources that are needed to complete the project over the 12-week period. A bottom to up approach is used to estimate the labor costs by role, and then by the infrastructure and development expenses needed. The hourly rates and estimated hours represent the planning assumptions and they provide a basis for estimating the project costs and can be adjusted if scope changes. A top down review will also be performed to compare the total estimate with the overall project schedule and expected work. 
+
+### 9.3.1 Labor Cost Breakdown
+
+| Team Member | Role | Estimated Hours | Hourly Rate | Total |
+|---|---|---:|---:|---:|
+| Alice Morgan | Project Manager | 120 | $50 | $6,000 |
+| Bob Carter | Lead Solutions Architect | 100 | $75 | $7,500 |
+| Carol Reed | Senior Backend Developer | 240 | $65 | $15,600 |
+| Dan Brooks | Lead Mobile Developer | 220 | $65 | $14,300 |
+| Frank Ellis | Hardware & IoT Specialist | 140 | $60 | $8,400 |
+| Grace Bennett | QA & Security Engineer | 120 | $55 | $6,600 |
+| Total | | 940 hours | | $58,400 |
+
+The total estimated labor requirement is 940 hours, with a cost of $58,400.
+
+
+### 9.3.2 Non-Labor and Infrastructure Costs
+
+The platform will also require infrastructure and external services.The proposed design uses existing cloud infrastructure and supported third-party APIs.
+
+| Expense Category | Estimated Cost | Description |
+|---|---:|---|
+| Cloud Infrastructure | $1,800 | Hosting, database services, caching, monitoring, and testing environments |
+| Third-Party APIs and Developer Tools | $1,200 | Mapping API usage, developer accounts, and estimated external service charges |
+| Security and Testing Tools | $1,000 | Vulnerability assessments, automated analysis, and performance testing resources |
+| Total Non-Labor Cost | $4,000 | |
+
+Cloud infrastructure will support the backend services, application data, and communication between system components. External APIs will support functions such as payment processing and navigation.
+
+
+### 9.3.3 Contingency Reserve
+
+A contingency reserve is included to account for risks that could increase project costs.
+
+Section 8 identified several risks and the budget should  account for the possibility that additional testing, development effort, or infrastructure resources could become necessary.
+
+The proposed reserve is 12% of direct project costs.
+
+**Direct Project Cost**
+
+$58,400 + $4,000 = **$62,400**
+
+**Contingency Reserve**
+
+$62,400 × 12% = **$7,488**
+
+**Total Proposed Project Funding**
+
+$62,400 + $7,488 = **$69,888**
+
+ Alice should review any request for additional funding against the risk register and project budget. Additional funding should only be approved after the cause and expected impact have been reviewed.
+
+
+## 9.4 Project Budget and Monthly Cash Flow
+
+The estimated direct cost of the Smart Parking Platform is $62,400. With the contingency reserve, the total proposed project funding requirement is $69,888.
+
+### 9.4.1 Project Budget Summary
+
+The estimated project cost is $62,400, with an additional 12% set aside for unexpected expenses.
+
+| Cost Category | Amount |
+|---|---:|
+| Personnel Labor | $58,400 |
+| Cloud Infrastructure | $1,800 |
+| Third-Party APIs and Tools | $1,200 |
+| Security and Testing Tools | $1,000 |
+| **Direct Project Cost** | **$62,400** |
+| Contingency Reserve (12%) | $7,488 |
+| **Total Project Budget** | **$69,888** |
+
+The $62,400 will be used as the initial budget baseline for tracking project performance. The contingency reserve will only be used when additional expenses are approved.
+
+### 9.4.2 Monthly Cash Flow Schedule
+
+The project is planned for 12 weeks, with costs divided across three months.
+
+| Expense Category | Month 1 | Month 2 | Month 3 | Total |
+|---|---:|---:|---:|---:|
+| Labor | $18,000 | $24,400 | $16,000 | $58,400 |
+| Infrastructure, APIs, and Tools | $1,000 | $1,600 | $1,400 | $4,000 |
+| **Monthly Total** | **$19,000** | **$26,000** | **$17,400** | **$62,400** |
+| **Cumulative Total** | **$19,000** | **$45,000** | **$62,400** | — |
+
+**Month 1 — Planning and Architecture**
+
+Alice and Bob will focus on planning, system architecture, and database design. Carol and Dan will begin setting up the backend and mobile application.
+
+**Month 2 — Core Development**
+
+Most of the development will happen during Month 2, which is why it has the highest cost. Carol and Dan will work on reservations, payments, and mobile features, while Frank begins the hardware integration.
+
+**Month 3 — Integration and Testing**
+
+Frank and Grace will focus on hardware integration, security, and testing. The remaining work will include fixing defects and preparing the system for deployment.
+
+## 9.5 Earned Value Management (EVM)
+
+EVM will help us track whether the project is on schedule and within budget. Instead of only looking at completed tasks, we will compare the work planned, the work actually completed, and how much we spent.
+
+### 9.5.1 EVM Baseline and Planned Value
+
+The initial **Budget at Completion (BAC) is $62,400**, excluding the contingency reserve.
+
+| Milestone | Cumulative Planned Value (PV) | Expected Work |
+|---|---:|---|
+| Month 1 | $19,000 | Requirements, architecture, and setup |
+| Month 2 | $45,000 | Mobile app, backend, payments, and APIs |
+| Month 3 | $62,400 | Hardware integration, testing, and deployment |
+
+### 9.5.2 EVM Performance Measurements
+
+We will use the following measurements to track project performance.
+
+| Metric | Formula | What It Tells Us |
+|---|---|---|
+| Planned Value (PV) | Budgeted scheduled work | How much work should be completed |
+| Earned Value (EV) | Budgeted completed work | How much work is actually completed |
+| Actual Cost (AC) | Recorded project expenses | How much we actually spent |
+| Schedule Variance (SV) | EV − PV | Whether we're ahead or behind schedule |
+| Cost Variance (CV) | EV − AC | Whether completed work is over or under budget |
+| Schedule Performance Index (SPI) | EV / PV | Schedule efficiency |
+| Cost Performance Index (CPI) | EV / AC | Cost efficiency |
+| Estimate at Completion (EAC) | BAC / CPI | Estimated final project cost |
+
+For SPI and CPI, **1.0 means we are on target**. Below 1.0 means we are behind schedule or over budget, depending on the metric. Above 1.0 indicates better performance than planned.
+
+For our project:
+
+**EAC = $62,400 / CPI**
+
+This allows us to estimate the final cost based on current spending. The calculations will be made once actual project data is available.
+
+### 9.5.3 Performance Monitoring and Corrective Actions
+
+Alice will review the project's SPI and CPI every two weeks.
+
+| Status | SPI / CPI | Action |
+|---|---|---|
+| Green | Both ≥ 0.95 | Continue as planned |
+| Yellow | Either 0.85–0.94 | Review delays, costs, and resources |
+| Red | Either below 0.85 | Investigate the problem and create a recovery plan |
+
+For example, if backend development is delayed, Alice will review the affected tasks with Carol and Bob to determine what needs to change. If spending is higher than expected, we will review expenses before approving additional funds.
+
+Any changes to the budget or project scope will follow the change management process.
+
+## 9.6 Resource and Cost Management Controls
+
+Alice will monitor project resources and expenses using the existing WBS, Gantt chart, backlog, and risk register.
+
+The team will track assigned work, compare actual expenses with the budget, review project delays, and document approved changes. Major issues will be communicated during stakeholder updates.
+
+## 9.7 Summary
+
+The Smart Parking Platform will use six team members with assigned responsibilities. The project is estimated at **940 labor hours and $62,400 in direct costs**.
+
+With the **12% contingency reserve of $7,488**, the total proposed budget is **$69,888**.
+
+The RACI matrix identifies who is responsible for each deliverable, while the monthly budget and EVM measurements will help us track project costs and progress throughout development.

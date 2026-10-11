@@ -2,9 +2,9 @@
 
 Project: Smart Parking Platform
 
-Version: 1.5
+Version: 1.6
 
-Date: 10.08.2026
+Date: 10.11.2026
 
 
 ## 1. Introduction
@@ -87,7 +87,7 @@ Assumptions: The Smart Parking Platform assumes that users have reliable interne
 - NFR17: Reliability - The system shall preserve completed reservation, payment, check-in, and administrative transaction records if an individual external service temporarily becomes unavailable.
 - NFR18: Availability - The system shall be available to users during the supported operating periods of participating parking facilities.
 
-## 5. Use Case Example
+## 5. Use Cases
 
 Category A: Driver and Mobile Application Interactions
 
@@ -444,17 +444,17 @@ Milestone 1: Requirements and Planning Baseline
 
 The SRS, use cases, Work Breakdown Structure, story point estimates, and initial project schedule are completed.
 
-Milestone 2: Core Driver Functions Completed
+Milestone 2: Core Driver Functions (Target)
 
-Driver registration, parking search, and reservation functions are working together.
+Driver registration, parking search, and reservation functions are planned to work together.
 
-Milestone 3: Payment and Parking Entry Integration Completed
+Milestone 3: Payment and Parking Entry Integration (Target)
 
-Stripe payment processing, QR credential generation, and parking facility check-in are connected.
+Stripe payment processing, QR credential generation, and parking facility check-in are planned to be connected.
 
-Milestone 4: Operator and Automated Services Completed
+Milestone 4: Operator and Automated Services (Target)
 
-Facility management, pricing, reporting, access management, reservation expiration, and parking expiration warnings are available.
+Facility management, pricing, reporting, access management, reservation expiration, and parking expiration warnings are planned to be available.
 
 Milestone 5: Final Smart Parking Platform Delivery
 
@@ -466,7 +466,9 @@ The full Smart Parking Platform is reviewed, tested, and prepared for final proj
 
 Figure 1. Smart Parking Platform Draft Project Schedule and Task Dependencies.
 
-| Date       | Milestone                                       |
+The dates below are planning targets from the earlier draft Gantt chart, not confirmation that development or testing is finished. The actual status and any revised dates need to be checked in Jira and the current schedule.
+
+| Target Date | Planned Milestone                                       |
 | ---------- | ----------------------------------------------- |
 | 09/18/2026 | Requirements and Planning Baseline              |
 | 09/30/2026 | Core Driver Functions Completed                 |
@@ -474,7 +476,13 @@ Figure 1. Smart Parking Platform Draft Project Schedule and Task Dependencies.
 | 10/11/2026 | Operator and Automated Services Completed       |
 | 12/04/2026 | Final Smart Parking Platform Delivery           |
 
-## 7.2 Sprint 1 Planning
+## 7. Agile Backlog and Sprint Planning
+
+### 7.1 Product Backlog Overview
+
+The Jira product backlog has 48 stories across four epics. I selected 13 stories for Sprint 1 and left 35 in the product backlog. The sprint plan is not proof that the features have been developed or completed.
+
+### 7.2 Sprint 1 Planning
 
 For Sprint 1, I selected 13 stories totaling 49 story points. I named the sprint Sprint 1 — Smart Parking Foundation because I wanted to focus on the main features that a driver would need to get started with the platform. My sprint goal is to deliver the foundation for account access, garage search, reservation hold, payment processing, and QR pass generation.
 
@@ -482,7 +490,7 @@ I selected 4 Login & Authentication stories worth 14 points, 5 UI stories worth 
 I also considered the dependencies from my earlier project planning. For the initial garage map and detail cards, I would use sample facility data because the full operator facility setup is still in the remaining backlog. This allows me to plan the driver experience first without treating every backend and operator feature as completed.
 Since this is my first sprint, the 49 story points represent my proposed scope, not an established team velocity. I have not started the sprint in Jira because this stage is focused on planning. The remaining 35 stories will stay in the product backlog for future sprint planning, where I can adjust priorities based on what gets completed and what the project needs next.
 
-## 7.3 Jira Backlog and Sprint Evidence
+### 7.3 Jira Backlog and Sprint Evidence
 I created the Scrum project in Jira, added the four epics, and imported all 48 stories. I then assigned each story to its matching epic and moved my 13 selected stories into Sprint 1. My Jira backlog shows the Sprint 1 goal, the 49-point estimate, and the 35 stories remaining in the product backlog.
 
 ![Jira Evidence 1](images/Jira_1.png)
@@ -499,7 +507,7 @@ I created the Scrum project in Jira, added the four epics, and imported all 48 s
 
 ## 8. Risk, Quality, and Communication Management
 
-In this section I looked at what could go wrong with the Smart Parking Platform, how I would check that everything works, and how we would keep everyone updated. I used a five person team for the communication part and picked some numbers to help measure the quality of the system.
+In this section I looked at what could go wrong with the Smart Parking Platform, how I would check that everything works, and how we would keep everyone updated. I updated the communication plan to use the same six member team listed in Section 9 and picked some numbers to help measure the quality of the system.
 
 ### 8.1 Risk Management Plan and Risk Register
 
@@ -552,7 +560,7 @@ I started each one as Open. As work continues, the status can change depending o
 
 - Category: Technical / Financial
 - Probability: 2 | Impact: 5 | Score: 10, High (Red)
-- Owner: Backend / Database Lead | Strategy: Mitigation
+- Owner: Carol Reed (Senior Backend Developer) | Strategy: Mitigation
 - Risk: Stripe could time out while someone is paying. If we dont know whether the payment went through, we also shouldnt tell the driver their parking is confirmed (UC-04).
 - Plan: First check the payment status before trying to charge the driver again. If we need to retry, use the same idempotency key so the retry doesnt create a second payment. When Stripe isnt responding, we should stop those checkouts and tell the driver the payment is pending or unavailable. Only give out the QR code after payment is confirmed. If too much time passes, check that parking is still available and refund through the normal process if it isnt.
 
@@ -560,7 +568,7 @@ I started each one as Open. As work continues, the status can change depending o
 
 - Category: Technical / Operational
 - Probability: 3 | Impact: 4 | Score: 12, High (Red)
-- Owner: Integration Lead | Strategy: Mitigation
+- Owner: Frank Ellis (Hardware & IoT Integration Specialist) | Strategy: Mitigation
 - Risk: The sensor could stop sending information and the app may still show a parking space as open when it really isnt (FR4, NFR5, NFR12).
 - Plan: Keep track of the last sensor update and try reconnecting if it stops. I would flag information that hasnt updated in 60 seconds. Until we can confirm a space is actually available, dont let drivers reserve it. The garage could provide a confirmed update when needed. Then compare the records before letting reservations start again, because just counting cars coming through the gate wont tell us which spaces are free.
 
@@ -568,7 +576,7 @@ I started each one as Open. As work continues, the status can change depending o
 
 - Category: Technical / Data
 - Probability: 3 | Impact: 4 | Score: 12, High (Red)
-- Owner: Backend / Database Lead | Strategy: Mitigation
+- Owner: Carol Reed (Senior Backend Developer) | Strategy: Mitigation
 - Risk: Two drivers could try to book the last available space at the same time, and both might end up thinking its theirs (FR6, NFR5, UC-03).
 - Plan: The system needs to check availability and hold the space together, not as two separate steps where someone else could book between them. I would start with a five minute checkout hold and test what happens when multiple people book at once, refresh or retry. If the system finds two reservations for the same capacity, stop those reservations and check the database records. We should only free a hold after confirming it expired. A Redis lock might help, but the database still needs to enforce the limit.
 
@@ -576,7 +584,7 @@ I started each one as Open. As work continues, the status can change depending o
 
 - Category: Operational / Integration
 - Probability: 2 | Impact: 4 | Score: 8, Medium (Yellow)
-- Owner: Integration Lead | Strategy: Mitigation
+- Owner: Frank Ellis (Hardware & IoT Integration Specialist) | Strategy: Mitigation
 - Risk: A driver paid for parking and has a valid QR code, but the scanner wont read it or the gate doesnt open (UC-06).
 - Plan: Test normal QR codes, expired codes, incorrect codes and someone scanning the same code twice. If the gate doesnt open but the app and gate controller still work, an authorized attendant can use the manual override. We need to save who opened it, when, which vehicle and why (FR20). If the gate itself is broken or offline, the garage would use its own procedure.
 
@@ -584,7 +592,7 @@ I started each one as Open. As work continues, the status can change depending o
 
 - Category: Operational
 - Probability: 3 | Impact: 2 | Score: 6, Medium (Yellow)
-- Owner: Mobile / Web Lead | Strategy: Mitigation, with remaining delivery risk accepted
+- Owner: Dan Brooks (Lead Mobile Developer) | Strategy: Mitigation, with remaining delivery risk accepted
 - Risk: A drivers warning about their parking time might not reach their phone (FR23, UC-15).
 - Plan: Record whether Apple or Firebase accepted the notification and retry failed alerts while there is still time. Drivers should also see their end time when they open the app. We could look at text messages later, but that would add cost and require consent. Sending a notification doesnt always mean somebody saw it.
 
@@ -592,7 +600,7 @@ I started each one as Open. As work continues, the status can change depending o
 
 - Category: Environmental / Operational
 - Probability: 2 | Impact: 5 | Score: 10, High (Red)
-- Owner: QA / Operations Lead | Strategy: Mitigation
+- Owner: Grace Bennett (QA & Security Engineer) | Strategy: Mitigation
 - Risk: Severe weather can affect garage power, connections, sensors and entry operations.
 - Plan: Watch for garages losing their connection. If a garage loses power or internet, stop new bookings there and let drivers know. Once service comes back, compare the parking and payment records before everything returns to normal. The garage would handle the gate and other physical problems using its own outage procedure.
 
@@ -600,7 +608,7 @@ I started each one as Open. As work continues, the status can change depending o
 
 - Category: Schedule / Resource
 - Probability: 3 | Impact: 3 | Score: 9, Medium (Yellow)
-- Owner: Project Manager | Strategy: Mitigation
+- Owner: Alice Morgan (Project Manager) | Strategy: Mitigation
 - Risk: One missing team member could hold up several tasks that depend on their work.
 - Plan: I would keep the notes and Jira tasks updated so somebody else can pick up work if needed. For important tasks, more than one person should understand what is going on. If someone is out, we can move the work around and decide which lower priority stories can wait. After that, update our sprint estimates.
 
@@ -608,7 +616,7 @@ I started each one as Open. As work continues, the status can change depending o
 
 - Category: Financial / Scope
 - Probability: 3 | Impact: 3 | Score: 9, Medium (Yellow)
-- Owner: Project Manager | Strategy: Mitigation / Avoidance
+- Owner: Alice Morgan (Project Manager) | Strategy: Mitigation / Avoidance
 - Risk: Cloud resources, maps, messages or extra reliability features could push costs beyond the approved budget.
 - Plan: Keep an eye on how much the cloud services, maps and messages are costing us. We should turn off testing resources we arent using and put optional features on hold if the costs get too high. Any extra spending would need to be checked against the budget before changing the plan.
 
@@ -616,7 +624,7 @@ I started each one as Open. As work continues, the status can change depending o
 
 - Category: Security / Operational
 - Probability: 2 | Impact: 5 | Score: 10, High (Red)
-- Owner: Backend / Database Lead | Strategy: Mitigation
+- Owner: Carol Reed (Senior Backend Developer) | Strategy: Mitigation
 - Risk: An unauthorized person accesses administrator features or uses the manual gate override (NFR2, NFR13, UC-12, UC-13).
 - Plan: Check permissions on the server, not just by hiding a button in the app. Protect login information and keep a record of administrative actions. If someone tries to use a feature they shouldnt have access to, or we see an unusual gate override, limit access and investigate. Keep the logs so we can see what happened, then test the fix before allowing access again.
 
@@ -649,37 +657,37 @@ I picked a few numbers so we can tell whether the system is meeting the quality 
 - Calculation: (Supported minutes - Unavailable minutes) / Supported minutes x 100.
 - Check the main system functions and downtime records each month, including planned and unplanned outages during operating hours.
 - For a system running all day, that is about 4.32 minutes down in a 30 day month or 52.56 minutes in a year.
-- Responsible: qa and operations lead.
+- Responsible: Grace Bennett (QA & Security Engineer).
 
 **Map search performance (FR3-FR4)**
 
 - Goal: With 1,000 people searching at once for 15 minutes, at least 95% of searches should finish in under 2 seconds and fewer than 1% should fail.
 - Start timing when someone searches and stop when the results show on the map. Record the test conditions too.
-- Check before release and after major changes. Responsible: qa and operations lead.
+- Check before release and after major changes. Responsible: Grace Bennett (QA & Security Engineer).
 
 **Payment data protection (NFR6-NFR7)**
 
 - Goal: Dont save full card numbers or security codes in the database or logs. Use Stripe payment references and a secure HTTPS connection.
 - Before release, check what the app saves and what shows up in logs. Review the payment security requirements too.
-- Responsible: backend and database lead.
+- Responsible: Carol Reed (Senior Backend Developer).
 
 **Reservation and payment integrity (FR6-FR8, NFR5)**
 
 - Goal: Run 10,000 checkout attempts with up to 100 at the same time and look for double bookings, duplicate charges and repeated QR passes. The goal is zero.
 - Include expired holds, retries and timeouts, then compare the payment records to the reservations.
-- Responsible: backend and database lead. If we find an issue, we should fix it and run the tests again.
+- Responsible: Carol Reed (Senior Backend Developer). If we find an issue, we should fix it and run the tests again.
 
 **Gate authorization and audit records (FR19-FR20, NFR2, NFR13)**
 
 - Goal: Block every test where someone without permission tries to open the gate. For every approved override, save who did it, when, the vehicle and the reason.
 - Test with people who should have access and people who shouldnt, including after any role changes.
-- Responsible: integration lead.
+- Responsible: Frank Ellis (Hardware & IoT Integration Specialist).
 
 **Parking expiration warning (FR23, UC-15)**
 
 - Goal: Send the warning 15 minutes before parking expires, and get it to the notification service within 60 seconds of that point.
 - Test the alerts before each release, including what happens when the provider is down. Keep track of accepted and rejected alerts and whether they reached a device.
-- Responsible: mobile and web lead.
+- Responsible: Dan Brooks (Lead Mobile Developer).
 
 Before we release anything, I would make sure the required tests pass and we save the results. I wouldnt release a feature that lets the wrong person open a gate, charges a driver incorrectly or gives someone parking they cant actually use. Smaller bugs can be reviewed with the project manager and product owner to decide what gets fixed now.
 
@@ -687,17 +695,17 @@ Before we release anything, I would make sure the required tests pass and we sav
 
 #### 8.3.1 Communication Paths
 
-I used five people for this example. To find how many ways they can communicate one on one, I used:
+I used the six project team members from Section 9. To find how many ways they can communicate one on one, I used:
 
 Communication paths = N(N - 1) / 2
 
-N = 5
+N = 6
 
-5(5 - 1) / 2 = 10 possible communication paths
+6(6 - 1) / 2 = 15 possible communication paths
 
-That gives us ten possible connections between team members. If the team gets bigger or smaller, I would just redo the calculation.
+That gives us fifteen possible connections between team members. If the team gets bigger or smaller, I would redo the calculation.
 
-The roles I used are project manager, backend and database, mobile and web, integrations, and qa and operations. One person could handle more than one area.
+The team is Alice (PM), Bob (Architect), Carol (Backend), Dan (Mobile), Frank (IoT Integration), and Grace (QA and Security), as assigned in Section 9.
 
 #### 8.3.2 Different Updates for Different People
 
@@ -711,7 +719,7 @@ I dont think everyone needs the same update. If Stripe stops taking payments, th
 | Sprint planning | Start of each sprint | Microsoft Teams and Jira | Project Manager | Pick the sprint goal, decide what fits and check which tasks depend on others. |
 | Sprint review and retrospective | End of each sprint | Microsoft Teams and Jira | Project Manager | Show what got finished, hear feedback and talk about what to improve next sprint. |
 | Weekly stakeholder report | Weekly | Microsoft Teams | Project Manager | Let the sponsor and facility contacts know how the schedule, costs and major problems are looking. Include decisions and due dates. |
-| Risk and quality review | Weekly and before each release | Microsoft Teams, Jira and GitHub | QA / Operations Lead | Check open risks, bugs and test results with the project manager. |
+| Risk and quality review | Weekly and before each release | Microsoft Teams, Jira and GitHub | Grace Bennett (QA & Security Engineer) | Check open risks, bugs and test results with the project manager. |
 | Technical decisions and code reviews | With each proposed change | GitHub pull requests or discussions, linked to Jira | Relevant technical lead | Leave comments, test results and the reason for changes where the team can find them. |
 | Urgent escalation | Immediately when detected | Microsoft Teams call or alert, plus an issue record | Risk owner and PM | Call the people handling it, explain what we know, who is working on it and when the next update is coming. Aim for a response within 15 minutes during coverage. |
 | Weekly course update | According to the assignment deadline | MS Teams recording, share link through Canvas | Student / Project Manager | Share a 1 to 2 minute camera on recording explaining the new section for the instructor. |
@@ -724,16 +732,16 @@ I dont think everyone needs the same update. If Stripe stops taking payments, th
 - [AWS - Amazon Compute Service Level Agreement](https://aws.amazon.com/compute/sla/): Cloud uptime and service credit terms.
 
 
-# 9. Resource Allocation and Cost Management
+## 9. Resource Allocation and Cost Management
 
 
-## 9.1 Resource Management Plan
+### 9.1 Resource Management Plan
 
 Developing the Smart Parking Platform will require resources, because the application is not limited to a mobile interface. The system also has to manage parking reservations, process payments, update parking availability, and communicate with external parking equipment. These components have technical requirements, but they also depend on each other.
 
 For this project, $oftware ¢orp. will operate with a 6 member team. Each member is assigned a role based on the work identified in the SRS, the 15 use cases, and the existing Work Breakdown Structure. The goal is to have clear ownership of the work, while still allowing team members to support one another when development tasks overlap. The proposed schedule covers 12 weeks, divided into 3 periods of 4 weeks. Not every team member will be needed for the same number of hours. Some responsibilities are more concentrated during planning, while others increase as the project moves into development and testing. This is considered in the resource allocation and cost estimates.
 
-### 9.1.1 Project Team Composition
+#### 9.1.1 Project Team Composition
 
 | Team Member | Project Role | Primary Responsibilities |
 |---|---|---|
@@ -748,10 +756,10 @@ Alice Morgan is assigned as the Project Manager and will oversee the project's o
 Bob Carter will serve as the Lead Solutions Architect. His responsibilities include the system architecture, database design, and establishing how the mobile application, backend, and external services will communicate with one another. A lot of the development work depends on these decisions, so the architecture needs to be established early to avoid having to make major changes later in the project.
 Carol Reed is responsible for backend development, which includes managing the reservation process, temporary parking holds, payment verification, and QR credential generation. These functions are closely connected, and an issue with one can affect the others. 
 Dan Brooks will handle the mobile application and the interfaces drivers will use to interact with the platform. This includes account registration, searching for available parking, navigation, and managing reservations. Dan will work closely with Carol because the information displayed in the application needs to match what is actually being processed by the backend. 
-Frank Ellis will be responsible for the hardware and IoT software integration. His work involves connecting the platform to supported parking sensors, QR scanners, and gate controllers, as well as verifying that information is being communicated correctly.Frank's responsibilities are specifically related to the software interfaces and making sure they work with the external hardware.
+Frank Ellis will be responsible for the hardware and IoT software integration. His work involves connecting the platform to supported parking sensors, QR scanners, and gate controllers, as well as verifying that information is being communicated correctly. Frank's responsibilities are specifically related to the software interfaces and making sure they work with the external hardware.
 Grace Bennett is assigned as the QA and Security Engineer. She will review the application's functionality, identify defects, and conduct security and performance testing throughout development. Testing should not be something the team waits to do at the end, especially with the reservation and payment functions. 
 
-## 9.2 Responsibility Assignment Matrix 
+### 9.2 Responsibility Assignment Matrix
 
 The RACI matrix will be used to identify who is completing each major deliverable and who has final accountability for it. 
 
@@ -761,7 +769,7 @@ The RACI matrix will be used to identify who is completing each major deliverabl
 - Informed (I): Receives updates on progress or decisions.
 
 
-### 9.2.1 RACI Matrix
+#### 9.2.1 RACI Matrix
 
 | Project Deliverable | Alice (PM) | Bob (Architect) | Carol (Backend) | Dan (Mobile) | Frank (IoT) | Grace (QA) |
 |---|---|---|---|---|---|---|
@@ -775,17 +783,17 @@ The RACI matrix will be used to identify who is completing each major deliverabl
 | Quality and Performance Testing | I | C | R | R | R | A/R |
 | Deployment and CI/CD | I | A | R | C | C | R |
 
-### 9.2.2 Coordination of Responsibilities
+#### 9.2.2 Coordination of Responsibilities
 
 The matrix establishes the ownership, but different deliverables  still depend on work done by other team members. For example, Carol is accountable for the Stripe payment integration however, Dan needs to also work on the mobile payment interface so that drivers can complete checkout and receive confirmation. Grace will need to verify that the payment process handles unsuccessful transactions correctly and does not expose sensitive information.
 
 Another dependency is with parking sensors and gate controllers. Frank is accountable for the software interface with the external equipment, while Carol is responsible for how the backend processes information and updates the parking session. Alice will monitor dependencies through the project schedule and backlog. If one task is delayed, the team will need to determine if the delay affects other work packages before making changes to the schedule.
 
-## 9.3 Resource Cost Estimation
+### 9.3 Resource Cost Estimation
 
-The cost estimates are based on the resources that are needed to complete the project over the 12-week period. A bottom to up approach is used to estimate the labor costs by role, and then by the infrastructure and development expenses needed. The hourly rates and estimated hours represent the planning assumptions and they provide a basis for estimating the project costs and can be adjusted if scope changes. A top down review will also be performed to compare the total estimate with the overall project schedule and expected work. 
+The cost estimates are based on the resources that are needed to complete the project over the 12-week period. A bottom-up approach is used to estimate the labor costs by role, and then by the infrastructure and development expenses needed. The hourly rates and estimated hours represent the planning assumptions and they provide a basis for estimating the project costs and can be adjusted if scope changes. A top-down review will also be performed to compare the total estimate with the overall project schedule and expected work.
 
-### 9.3.1 Labor Cost Breakdown
+#### 9.3.1 Labor Cost Breakdown
 
 | Team Member | Role | Estimated Hours | Hourly Rate | Total |
 |---|---|---:|---:|---:|
@@ -800,9 +808,9 @@ The cost estimates are based on the resources that are needed to complete the pr
 The total estimated labor requirement is 940 hours, with a cost of $58,400.
 
 
-### 9.3.2 Non-Labor and Infrastructure Costs
+#### 9.3.2 Non-Labor and Infrastructure Costs
 
-The platform will also require infrastructure and external services.The proposed design uses existing cloud infrastructure and supported third-party APIs.
+The platform will also require infrastructure and external services. The proposed design uses existing cloud infrastructure and supported third-party APIs.
 
 | Expense Category | Estimated Cost | Description |
 |---|---:|---|
@@ -814,7 +822,7 @@ The platform will also require infrastructure and external services.The proposed
 Cloud infrastructure will support the backend services, application data, and communication between system components. External APIs will support functions such as payment processing and navigation.
 
 
-### 9.3.3 Contingency Reserve
+#### 9.3.3 Contingency Reserve
 
 A contingency reserve is included to account for risks that could increase project costs.
 
@@ -837,11 +845,11 @@ $62,400 + $7,488 = **$69,888**
  Alice should review any request for additional funding against the risk register and project budget. Additional funding should only be approved after the cause and expected impact have been reviewed.
 
 
-## 9.4 Project Budget and Monthly Cash Flow
+### 9.4 Project Budget and Monthly Cash Flow
 
 The estimated direct cost of the Smart Parking Platform is $62,400. With the contingency reserve, the total proposed project funding requirement is $69,888.
 
-### 9.4.1 Project Budget Summary
+#### 9.4.1 Project Budget Summary
 
 The estimated project cost is $62,400, with an additional 12% set aside for unexpected expenses.
 
@@ -857,9 +865,9 @@ The estimated project cost is $62,400, with an additional 12% set aside for unex
 
 The $62,400 will be used as the initial budget baseline for tracking project performance. The contingency reserve will only be used when additional expenses are approved.
 
-### 9.4.2 Monthly Cash Flow Schedule
+#### 9.4.2 Monthly Cash Flow Schedule
 
-The project is planned for 12 weeks, with costs divided across three months.
+The project is planned for 12 weeks, with costs divided across three months. These are proposed cost-planning periods. The exact weeks and expenses still need to be checked against the dated Gantt chart in Section 6; the table does not establish new milestone dates.
 
 | Expense Category | Month 1 | Month 2 | Month 3 | Total |
 |---|---:|---:|---:|---:|
@@ -880,11 +888,11 @@ Most of the development will happen during Month 2, which is why it has the high
 
 Frank and Grace will focus on hardware integration, security, and testing. The remaining work will include fixing defects and preparing the system for deployment.
 
-## 9.5 Earned Value Management (EVM)
+### 9.5 Earned Value Management (EVM)
 
 EVM will help us track whether the project is on schedule and within budget. Instead of only looking at completed tasks, we will compare the work planned, the work actually completed, and how much we spent.
 
-### 9.5.1 EVM Baseline and Planned Value
+#### 9.5.1 EVM Baseline and Planned Value
 
 The initial **Budget at Completion (BAC) is $62,400**, excluding the contingency reserve.
 
@@ -894,7 +902,7 @@ The initial **Budget at Completion (BAC) is $62,400**, excluding the contingency
 | Month 2 | $45,000 | Mobile app, backend, payments, and APIs |
 | Month 3 | $62,400 | Hardware integration, testing, and deployment |
 
-### 9.5.2 EVM Performance Measurements
+#### 9.5.2 EVM Performance Measurements
 
 We will use the following measurements to track project performance.
 
@@ -917,7 +925,7 @@ For our project:
 
 This allows us to estimate the final cost based on current spending. The calculations will be made once actual project data is available.
 
-### 9.5.3 Performance Monitoring and Corrective Actions
+#### 9.5.3 Performance Monitoring and Corrective Actions
 
 Alice will review the project's SPI and CPI every two weeks.
 
@@ -931,13 +939,13 @@ For example, if backend development is delayed, Alice will review the affected t
 
 Any changes to the budget or project scope will follow the change management process.
 
-## 9.6 Resource and Cost Management Controls
+### 9.6 Resource and Cost Management Controls
 
 Alice will monitor project resources and expenses using the existing WBS, Gantt chart, backlog, and risk register.
 
 The team will track assigned work, compare actual expenses with the budget, review project delays, and document approved changes. Major issues will be communicated during stakeholder updates.
 
-## 9.7 Summary
+### 9.7 Summary
 
 The Smart Parking Platform will use six team members with assigned responsibilities. The project is estimated at **940 labor hours and $62,400 in direct costs**.
 

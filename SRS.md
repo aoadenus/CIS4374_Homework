@@ -2,9 +2,9 @@
 
 Project: Smart Parking Platform
 
-Version: 1.6
+Version: 1.7
 
-Date: 10.11.2026
+Date: 10.29.2026
 
 
 ## 1. Introduction

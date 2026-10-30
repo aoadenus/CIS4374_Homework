@@ -952,3 +952,75 @@ The Smart Parking Platform will use six team members with assigned responsibilit
 With the **12% contingency reserve of $7,488**, the total proposed budget is **$69,888**.
 
 The RACI matrix identifies who is responsible for each deliverable, while the monthly budget and EVM measurements will help us track project costs and progress throughout development.
+
+10. Team Governance and Stakeholder Management
+
+In this section, I looked at who is involved in the Smart Parking Platform, how the project will be managed, and how our team will work together. Since the platform involves drivers, garage operators, developers, and outside services, it's important that everyone understands their role and knows what to expect.
+
+10.1 Stakeholder Analysis (Power–Interest Grid)
+
+I used the Power–Interest Grid to organize stakeholders based on how much influence they have over the project and how interested they are in its success.
+
+Power / Interest| Low Interest| High Interest
+High Power| Keep Satisfied: Course Instructor, City Regulators, External Service Providers| Manage Closely: Executive Management, Project Sponsor, Project Manager, Garage Owners
+Low Power| Monitor: Surrounding Community, General Public| Keep Informed: Drivers, Garage Attendants, Development Team
+
+Not everyone needs the same kind of updates. Executive management and the project sponsor will want to know how the budget, schedule, and major risks are looking. Drivers are more concerned about whether they can actually find parking, make a payment, and enter the garage without problems.
+
+For communication, I would follow the plan from Section 8. Management would receive weekly progress updates, developers would have regular check-ins, and garage operators would be involved when we need their input on facility requirements or equipment integration.
+
+I would also revisit the grid if new stakeholders become involved or someone's influence over the project changes.
+
+10.2 Project Charter
+
+The Project Charter explains why we're developing the Smart Parking Platform, what we want to accomplish, and the resources we expect to need.
+
+Item| Description
+Project| $oftware ¢orp. Smart Parking Platform
+Project Manager| Alice Morgan
+Project Sponsor| Executive Management (Proposed)
+Business Need| Drivers need an easier way to find and reserve parking, while garage operators need better ways to manage availability and revenue.
+Project Goal| Develop a mobile app and operator portal that connect parking availability, reservations, Stripe payments, QR entry, and garage management.
+Project Scope| The 15 use cases from Section 5, including driver functions, facility operations, and automated services.
+Out of Scope| Physical hardware manufacturing and maintenance, municipal ticket enforcement, and valet staffing.
+Project Duration| 12 weeks
+Final Delivery Target| December 4, 2026
+Direct Project Budget| $62,400
+Contingency Reserve| $7,488
+Total Proposed Funding| $69,888
+
+The project will follow the schedule and milestones from Section 6. These dates are planning targets, and the actual progress will need to be checked in Jira. Alice will be responsible for managing the schedule, budget, and resources, while major changes to the project will need approval from executive management.
+
+I also want to make sure we're not measuring success only by whether the project is finished on time. The platform needs to work properly. That means drivers shouldn't be charged twice, parking availability needs to be accurate, and garage entry needs to be secure. The quality targets from Section 8 will help us measure that.
+
+10.3 Team Charter
+
+The Team Charter explains how our team plans to work together. We will use the same six-member team and responsibilities established in Section 9.
+
+10.3.1 Team Roles
+
+Team Member| Role
+Alice Morgan| Project Manager
+Bob Carter| Lead Solutions Architect
+Carol Reed| Senior Backend Developer
+Dan Brooks| Lead Mobile Developer
+Frank Ellis| Hardware & IoT Integration Specialist
+Grace Bennett| QA & Security Engineer
+
+10.3.2 Team Agreements
+
+Our team will use Agile and Scrum to organize the work. We plan to work in two-week sprints, have 15-minute daily check-ins through Microsoft Teams, and use Jira to keep track of assignments and progress. GitHub will be used for code changes and reviews.
+
+I think one of the most important things is that everyone communicates when something isn't going as planned. If Carol is having problems with payment processing, Dan needs to know because it could affect the mobile checkout process. The same goes for Frank's garage integrations and Grace's testing.
+
+I also want the team to be comfortable asking questions and bringing up mistakes. It's better to find out that something isn't working early than to discover it right before a release.
+
+10.3.3 Leadership and Conflict Resolution
+
+I would use a collaborative leadership approach where everyone has a chance to contribute ideas and explain their concerns. At the same time, some situations need a quicker decision, especially when security or payments are involved.
+
+For example, if Stripe stops working right before a release, Carol and Bob would investigate the problem and explain what can be done. Alice would then look at how the issue affects the schedule and decide whether the release needs to be delayed. I wouldn't want the team to push something out just to meet a deadline if it could cause problems for drivers.
+
+Technical disagreements would first be discussed with Bob, while Alice would handle issues involving the schedule, resources, or budget. We would also document important decisions in Jira or Teams so everyone knows what was agreed on.
+
+Overall, I want the team to have clear responsibilities, communicate with each other, and be able to adjust when something doesn't go as planned. The goal is to finish the Smart Parking Platform while making sure we're delivering something that actually works.

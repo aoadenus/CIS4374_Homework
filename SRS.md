@@ -1042,16 +1042,16 @@ I completed the requirements and project planning sections, including the backlo
 
 I think the main achievement was getting the different parts organized into a plan. I documented 15 use cases and created a Jira backlog with 48 stories. I also assigned responsibilities and looked at problems like failed payments, outdated sensor information, and gate failures.
 
-The shortfall is that I cant compare the plan to actual results yet. Sprint 1 hasnt started, so the 49 points are only an estimate. The schedule needs another look too, along with details about refunds, vehicle exit, and completing a parking session.
+The shortfall is that I can't compare the plan to actual results yet. Sprint 1 hasn't started, so the 49 points are only an estimate. The schedule needs another look too, along with details about refunds, vehicle exit, and completing a parking session.
 
 ### 11.3 Lessons Learned
 
 One thing I learned was how a feature that sounds simple can involve several other things. Taking a payment, for example. We also need to know what happens if it times out, if the driver retries, or if the reservation hold expires.
 
-I also realized that having the app work doesnt mean the whole process works. If someone pays but cant get through the gate, they still have a problem. Thats something I would test early.
+I also realized that having the app work doesn't mean the whole process works. If someone pays but cant get through the gate, they still have a problem. That is something I would test early.
 
 ### 11.4 Recommendations for Future Projects
 
-Next time, I would start smaller and test the full process at one garage before adding more features. I would also get garage operators involved earlier, because some things are easier to understand when the people using the equipment explain them.
+Next time, I would plan to start smaller and test the full process at one garage before adding more features. I would also get garage operators involved earlier, because some things are easier to understand when the people using the equipment explain them.
 
 The estimates helped me get started, but I would use actual sprint results and expenses to adjust the plan as we go. Overall, the planning gives us a starting point. There is still work to review before treating the platform as ready for development.

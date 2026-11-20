@@ -2,16 +2,16 @@
 
 Project: Smart Parking Platform
 
-Version: 1.7
+Version: **1.8 Baseline (v1.8)**
 
-Date: 10.29.2026
+Date: 11.19.2026
 
 
 ## 1. Introduction
 
 ### 1.1 Purpose
 
-This document defines the requirements for the $oftware ¢orp. Smart Parking Platform. It describes the systems users, functional behavior, quality expectations, business rules, and use cases that will later assist us in our estimations, scheduling, design, and implementation.
+This document defines the requirements for the $oftware ¢orp. Smart Parking Platform. It describes the system's users, functional behavior, quality expectations, business rules, and use cases that will later assist us in our estimations, scheduling, design, and implementation.
 
 ### 1.2 Scope
 
@@ -22,6 +22,12 @@ The Smart Parking Platform is a double sided parking management solution. The dr
 - Physical manufacturing, installation, or hardware maintenance of parking barrier gates, optical scanners, and IoT floor sensors
 - Municipal traffic citation enforcement, parking ticket violation processing, and legal collections
 - On-site valet or physical attendant staffing operations
+
+### 1.3 Brief Project Acquisition
+
+I would start with a garage operator or campus parking service and find out how they currently manage reservations, payments, and entry. Before presenting the project, I would check whether their equipment can connect to the platform and whether an existing service already meets their needs. This would help explain why a custom solution is worth considering.
+
+Alice would prepare the scope, 12-week schedule, and $69,888 funding proposal. The sponsor and garage owner would review the deliverables and acceptance requirements before signing an agreement. This is how I would approach a potential client. There is no confirmed agreement yet.
 
 ## 2. Overall Description
 
@@ -35,10 +41,12 @@ Assumptions: The Smart Parking Platform assumes that users have reliable interne
 
 ### Evaluation of existing software solutions
 
-- ParkMobile / PayByPhone: Market leaders in municipal and on-street parking. They are widely used and make mobile parking payments convenient, but they mainly track paid parking time rather than whether a vehicle is physically still occupying the space. This can make availability information less accurate.
-- SpotHero / ParkWhiz: Strong competitors in off-street garage reservations and advance parking passes. They are useful for pre-booking, but they generally rely more on reserved inventory than direct integration with garage hardware such as barrier gates and live IoT parking sensors.
-- Passport Enterprise: A comprehensive municipal parking and enforcement platform with strong backend capabilities. However, it is more focused on administration and enforcement, while the driver experience is less central. It also does not emphasize features such as turn-by-turn navigation and a fully connected driver journey.
-- Our Smart Parking Platform: Our solution is designed to connect the driver experience with real-time garage operations. The main difference is the combination of live parking availability, IoT sensor data, garage gate integration, reservations, payments, navigation, and parking-session management within one platform.
+The providers' websites show several features that overlap with this project. What a garage can use depends on its equipment and the services it supports.
+
+- **ParkMobile / PayByPhone:** These services overlap with our payment and parking-session features. ParkMobile lists integrations for parking availability, gated payments, and access control. PayByPhone lets drivers pay for parking and extend eligible sessions. I would compare the integrations available at the proposed garage before recommending a custom platform. [ParkMobile integrations](https://www.parkmobile.io/parking-providers/integrations); [PayByPhone features](https://www.paybyphone.com/drivers/how-it-works).
+- **SpotHero / ParkWhiz:** Both provide prepaid parking reservations. SpotHero describes entry by QR code, attendant validation, or license plate. ParkWhiz also supports several validation methods, including scanning a QR code at a gate. These services already cover parts of the reservation-to-entry process, so gate integration alone is not a unique feature of our project. [SpotHero FAQ](https://spothero.com/faq); [ParkWhiz pass validation](https://help.parkwhiz.com/support/solutions/articles/60001010475-how-do-i-prove-i-ve-already-paid-for-parking-).
+- **Passport:** Passport offers mobile payments and connections to gated parking, permitting, and enforcement. It competes with our payment and operator functions, although enforcement remains outside our scope. [Passport mobile payments](https://www.passportinc.com/mobile-payments-product-details/).
+- **Our Smart Parking Platform:** Our proposed value is connecting reservations, payments, sensor telemetry, garage entry, and operator reporting for a participating facility. I would also focus on what happens when a payment is uncertain, sensor information is outdated, or a gate does not open. We would need operator feedback and testing before claiming that our platform performs better than an existing service.
 
 ## 3. Functional Requirements
 
@@ -48,7 +56,7 @@ Assumptions: The Smart Parking Platform assumes that users have reliable interne
 - FR4: The system shall show drivers current parking availability, parking rates, operating hours, and available parking types for each facility.
 - FR5: The system shall allow drivers to reserve available parking for a selected arrival and departure time.
 - FR6: The system shall temporarily hold the selected parking availability during checkout so another driver cannot reserve the same availability at the same time.
-- FR7: The system shall allow drivers to make digital payment's through Stripe using the supported payment methods.
+- FR7: The system shall allow drivers to make digital payments through Stripe using the supported payment methods.
 - FR8: The system shall generate a QR entry credential after a reservation has been successfully paid for.
 - FR9: The system shall provide directions to the selected parking facility through a supported mapping and location service.
 - FR10: The system shall allow drivers to check in at a parking facility by scanning their reservation QR code at the entrance.
@@ -72,7 +80,7 @@ Assumptions: The Smart Parking Platform assumes that users have reliable interne
 - NFR2: Authorization - The system shall use role based access control to restrict system functions based on each user's role.
 - NFR3: Connectivity - The system shall require network connectivity for functions that are dependent on real time parking information, payments, notifications, and more.
 - NFR4: Hardware Compatibility - The system shall support compatible parking sensors, QR scanners, gate controllers, and other approved hardware.
-- NFR5: Data Consistency - The system shall maintain consistent reservation, payment, check-in, occupancy, and parking availability information across the full protfolio.
+- NFR5: Data Consistency - The system shall maintain consistent reservation, payment, check-in, occupancy, and parking availability information across the full portfolio.
 - NFR6: Security - The system shall protect sensitive information during transmission and storage.
 - NFR7: Payment Security - The system shall process digital payments through the approved payment provider and will avoid storing unnecessary payment information.
 - NFR8: Usability - The driver mobile application shall provide a graphical user interface for searching, reserving, paying for, entering, and managing parking sessions.
@@ -394,17 +402,33 @@ Navigate to Parking Facility (Use Case 5) will be used as the one story point ba
 1.6 Automated Platform Services
     1.6.1 Expire Unused Reservations and Release Inventory (UC-14) [5 SP]
     1.6.2 Send Parking Expiration Warning (UC-15) [3 SP]
+
+1.7 Project Planning and Management
+    1.7.1 Project Acquisition and Charters
+    1.7.2 Requirements and Backlog Review
+    1.7.3 Schedule, Budget, Risk, and Change Monitoring
+
+1.8 Architecture, Testing, and Release
+    1.8.1 System Architecture and Development Environments
+    1.8.2 Integration, Security, and Performance Testing
+    1.8.3 Deployment Preparation and Handover
+
+1.9 Project Closure
+    1.9.1 Acceptance Review and Closure Report
+    1.9.2 Post-Project Maintenance Proposal
 ```
+
+The added work covers planning, architecture, testing, and closure. It is included in the existing 940 labor hours, rather than added on top of the budget. The feature estimates below are my earlier use-case estimates. Section 7 breaks the work into 48 Jira stories totaling 192 points. These are different levels of estimation, so I would not add the two sets of points together.
 
 ### 6.3 Story Point Estimation
 
 | WBS ID | Work Package                                       | Story Points | Reason for Estimate                                                                                                               |
 | ------ | -------------------------------------------------- | -----------: | --------------------------------------------------------------------------------------------------------------------------------- |
-| 1.1.1  | User Registration and Profile Setup                |            3 | Includes creating an account, saving vehicle information, checking the users information, and sending an SMS code.                |
-| 1.2.1  | Real-Time Interactive Parking Map Search           |            5 | Uses the drivers location, searches nearby facilities, and shows current availability, rates, hours, and parking types.           |
+| 1.1.1  | User Registration and Profile Setup                |            3 | Includes creating an account, saving vehicle information, checking the user's information, and sending an SMS code.                |
+| 1.2.1  | Real-Time Interactive Parking Map Search           |            5 | Uses the driver's location, searches nearby facilities, and shows current availability, rates, hours, and parking types.           |
 | 1.2.2  | Reserve Parking and Temporary Capacity Hold        |            5 | Checks availability, calculates the cost, and holds the parking capacity while the driver completes checkout.                     |
 | 1.2.3  | Navigate to Parking Facility                       |            1 | Baseline: Mainly sends the facility location to the mapping service and displays the directions that are returned.                |
-| 1.3.1  | Process Digital Payment and Generate QR Credential |            8 | Uses Stripe to process digital payment's, records the transaction, confirms the reservation, and creates the QR entry credential. |
+| 1.3.1  | Process Digital Payment and Generate QR Credential |            8 | Uses Stripe to process digital payments, records the transaction, confirms the reservation, and creates the QR entry credential. |
 | 1.3.2  | Extend Parking Reservation Duration                |            5 | Checks if more time and parking capacity is available, calculates the extra cost, processes payment, and updates the reservation. |
 | 1.3.3  | View Reservation History and Download Receipts     |            3 | Retrieves previous parking sessions and transactions and creates a PDF receipt when the driver requests one.                      |
 | 1.4.1  | QR Check-In and Gate Control Integration           |            8 | Checks the QR code, communicates with the gate system, opens the gate, and updates the reservation and occupancy.                 |
@@ -418,63 +442,61 @@ Navigate to Parking Facility (Use Case 5) will be used as the one story point ba
 
 ### 6.4 Project Schedule and Task Dependencies
 
-| WBS ID | Work Package                                       | Predecessor  | Dependency |  SP | Estimated Duration |
-| ------ | -------------------------------------------------- | ------------ | ---------- | --: | -----------------: |
-| 1.1.1  | User Registration and Profile Setup                | None         | -          |   3 |             2 days |
-| 1.4.2  | Configure Facility and Parking Inventory           | None         | -          |   8 |             4 days |
-| 1.5.3  | Manage Users and Role-Based Access Control         | None         | -          |   5 |             3 days |
-| 1.2.1  | Real-Time Interactive Parking Map Search           | 1.4.2        | FS         |   5 |             3 days |
-| 1.2.2  | Reserve Parking and Temporary Capacity Hold        | 1.1.1, 1.2.1 | FS         |   5 |             3 days |
-| 1.3.1  | Process Digital Payment and Generate QR Credential | 1.2.2        | FS         |   8 |             4 days |
-| 1.2.3  | Navigate to Parking Facility                       | 1.3.1        | FS         |   1 |              1 day |
-| 1.4.1  | QR Check-In and Gate Control Integration           | 1.3.1, 1.4.2 | FS         |   8 |             4 days |
-| 1.3.2  | Extend Parking Reservation Duration                | 1.4.1        | FS         |   5 |             3 days |
-| 1.3.3  | View Reservation History and Download Receipts     | 1.3.1        | FS         |   3 |             2 days |
-| 1.5.1  | Configure Dynamic Pricing Rules                    | 1.4.2        | FS         |   8 |             4 days |
-| 1.5.2  | Generate Occupancy and Revenue Reports             | 1.4.1        | FS         |   5 |             3 days |
-| 1.4.3  | Manual Gate Override and Audit Logging             | 1.4.1, 1.5.3 | FS         |   5 |             3 days |
-| 1.6.1  | Expire Unused Reservations and Release Inventory   | 1.2.2        | FS         |   5 |             3 days |
-| 1.6.2  | Send Parking Expiration Warning                    | 1.4.1        | FS         |   3 |             2 days |
+I aligned the schedule with the 12-week plan and two-week sprints already used in this project. September 14 through December 4, 2026 is the proposed planning period. These dates do not confirm that development started or that a milestone was completed. Before using the schedule for actual work, I would check progress, team availability, and holiday coverage.
 
-Finish-to-Start (FS) means one task should be completed before the next related task begins. Some of the work can also happen at the same time when the tasks do not directly depend on each other. For example, account setup, facility setup, and access control can begin separately, while payment cannot be completed until the reservation process is working.
+The dates below are work windows, not full-time labor assignments. Some tasks overlap because different team members can work at the same time. Unless noted otherwise, a predecessor must finish before the dependent work begins.
+
+| WBS ID | Work Package | Start–Finish (2026) | Dependency | Lead |
+|---|---|---|---|---|
+| 1.7.1 | Acquisition and charters | 09-14–09-18 | None | Alice |
+| 1.7.2 | Requirements and backlog review | 09-14–09-18 | Alongside 1.7.1 | Alice |
+| 1.7.3 | Schedule, cost, and risk monitoring | 09-14–12-04 | Throughout the project | Alice |
+| 1.8.1 | Architecture and environments | 09-14–09-16 | Requirements review begins | Bob |
+| 1.1.1 | Registration and profile | 09-14–09-17 | Initial account design | Carol |
+| 1.5.3 | User access and permission changes | 09-14–10-02 | Initial access in Sprint 1; changes in Sprint 2 | Carol |
+| 1.2.1 | Map search | 09-17–09-18 | 1.8.1; sample facility data | Dan |
+| 1.2.2 | Reservation hold | 09-21–09-22 | 1.1.1, 1.2.1 | Carol |
+| 1.3.1 | Payment and QR credential | 09-23–09-25 | 1.2.2 | Carol |
+| 1.2.3 | Directions to garage | 09-28–09-28 | 1.3.1 | Dan |
+| 1.4.2 | Facility configuration and sensors | 09-28–10-09 | Initial operator access from 1.5.3 | Frank |
+| 1.6.1 | No-show expiry and inventory release | 10-05–10-07 | 1.2.2 | Carol |
+| 1.4.1 | QR entry and check-in | 10-12–10-16 | 1.3.1, 1.4.2 | Frank |
+| 1.3.3 | History and receipts | 10-12–10-16 | 1.3.1 | Carol |
+| 1.3.2 | Session extension | 10-19–10-21 | 1.4.1 | Carol |
+| 1.4.3 | Manual override and audit logging | 10-19–10-21 | 1.4.1, 1.5.3 | Frank |
+| 1.5.1 | Dynamic pricing | 10-26–10-29 | 1.4.2 | Carol |
+| 1.6.2 | Expiration warnings | 10-26–10-28 | 1.4.1 | Dan |
+| 1.5.2 | Reports and remaining analytics | 10-26–12-01 | 1.4.1; staged in Sprints 4–6 | Carol |
+| 1.8.2 | Integration, security, and performance tests | 09-14–12-03 | Test each feature; final review after all features | Grace |
+| 1.8.3 | Deployment preparation and handover | 11-23–12-04 | Prepare in parallel; release after 1.8.2 | Bob |
+| 1.9.1 | Acceptance review and closure | 11-23–12-04 | Final decision after testing and handover review | Alice |
+| 1.9.2 | Maintenance proposal | 11-23–12-04 | Alongside closure review | Alice |
+
+Sprint 1 uses sample facility data for the map and checkout, as explained in Section 7. Full facility setup follows in Sprint 2, and the live map and occupancy display are checked in Sprint 3. Database consistency checks continue in Sprint 2 before gate integration. Reporting is completed in stages, including the driver expenditure summary in Sprint 6. These follow-up checks are part of the existing work packages.
+
+The main dependency runs from account and map setup to reservation holds, payment, QR entry, and session functions. Facility configuration also has to be ready before live gate and sensor testing. Grace reviews features during each sprint, with final integration and release checks near the end.
 
 ### 6.5 Project Milestones
 
-Milestone 1: Requirements and Planning Baseline
+| Target Date | Planned Milestone | What Needs to Be Ready |
+|---|---|---|
+| 09/18/2026 | Requirements and Planning Baseline | Scope, requirements, backlog, architecture outline, and estimates reviewed. |
+| 09/25/2026 | Core Driver Functions | Account access, sample-data search, reservation hold, test payment, and QR pass connected. |
+| 10/23/2026 | Payment and Parking Entry Integration | Facility data, payment, QR check-in, extension, receipts, and manual override checked together. |
+| 12/01/2026 | Operator and Automated Services | Pricing, expiration services, and all planned reports ready for final review. |
+| 12/04/2026 | Final Smart Parking Platform Delivery | Required tests, unresolved issues, handover material, and acceptance decision reviewed. |
 
-The SRS, use cases, Work Breakdown Structure, story point estimates, and initial project schedule are completed.
-
-Milestone 2: Core Driver Functions (Target)
-
-Driver registration, parking search, and reservation functions are planned to work together.
-
-Milestone 3: Payment and Parking Entry Integration (Target)
-
-Stripe payment processing, QR credential generation, and parking facility check-in are planned to be connected.
-
-Milestone 4: Operator and Automated Services (Target)
-
-Facility management, pricing, reporting, access management, reservation expiration, and parking expiration warnings are planned to be available.
-
-Milestone 5: Final Smart Parking Platform Delivery
-
-The full Smart Parking Platform is reviewed, tested, and prepared for final project delivery.
+These dates show when I plan to have each part ready. I would check the results before marking a milestone complete.
 
 ### 6.6 Gantt Chart
 
+![Smart Parking Platform Version 1.8 Updated Gantt Schedule](images/GANTT_v1_8.png)
+
+
+The earlier chart remains below for reference. Its shorter feature schedule has been replaced by the dates in Sections 6.4–6.5.
+
 ![Smart Parking Platform Draft Project Gantt Schedule](images/GANTT_HW2.png)
 
-Figure 1. Smart Parking Platform Draft Project Schedule and Task Dependencies.
-
-The dates below are planning targets from the earlier draft Gantt chart, not confirmation that development or testing is finished. The actual status and any revised dates need to be checked in Jira and the current schedule.
-
-| Target Date | Planned Milestone                                       |
-| ---------- | ----------------------------------------------- |
-| 09/18/2026 | Requirements and Planning Baseline              |
-| 09/30/2026 | Core Driver Functions Completed                 |
-| 10/08/2026 | Payment and Parking Entry Integration Completed |
-| 10/11/2026 | Operator and Automated Services Completed       |
-| 12/04/2026 | Final Smart Parking Platform Delivery           |
 
 ## 7. Agile Backlog and Sprint Planning
 
@@ -488,10 +510,12 @@ For Sprint 1, I selected 13 stories totaling 49 story points. I named the sprint
 
 I selected 4 Login & Authentication stories worth 14 points, 5 UI stories worth 17 points, and 4 Backend stories worth 18 points. I prioritized these stories because they support each other. For example, a driver needs to create an account and find a garage before making a reservation. The platform also needs to hold the parking capacity during checkout, process the payment, and generate a QR pass after the reservation is confirmed.
 I also considered the dependencies from my earlier project planning. For the initial garage map and detail cards, I would use sample facility data because the full operator facility setup is still in the remaining backlog. This allows me to plan the driver experience first without treating every backend and operator feature as completed.
-Since this is my first sprint, the 49 story points represent my proposed scope, not an established team velocity. I have not started the sprint in Jira because this stage is focused on planning. The remaining 35 stories will stay in the product backlog for future sprint planning, where I can adjust priorities based on what gets completed and what the project needs next.
+Since this is my first sprint, the 49 story points represent my proposed scope, not an established team velocity. I have not started the sprint in Jira because this stage is focused on planning. The screenshots show the remaining 35 stories in the product backlog. I have now proposed their placement in later sprints in Section 7.5. Those assignments still need to be applied in Jira and adjusted based on actual progress.
 
 ### 7.3 Jira Backlog and Sprint Evidence
 I created the Scrum project in Jira, added the four epics, and imported all 48 stories. I then assigned each story to its matching epic and moved my 13 selected stories into Sprint 1. My Jira backlog shows the Sprint 1 goal, the 49-point estimate, and the 35 stories remaining in the product backlog.
+
+These screenshots show my earlier Jira setup. I still need to add the later sprint plans and take updated screenshots.
 
 ![Jira Evidence 1](images/Jira_1.png)
 
@@ -505,6 +529,396 @@ I created the Scrum project in Jira, added the four epics, and imported all 48 s
 
 ![Jira Evidence 6](images/Jira_6.png)
 
+### 7.4 Complete Product Backlog
+
+The backlog has 48 stories totaling 192 points across four epics. I kept the existing IDs, titles, and estimates and added acceptance checks for each story. I still need to compare these proposed descriptions and checks with what is in Jira before updating the issues. The actors in the stories describe who uses the platform, while Section 9 lists the six project team members.
+
+#### Login & Authentication — 6 Stories / 21 Points
+
+**AUTH-01 / SCRUM-9: Driver Account Registration & License Plate Setup — 3 SP**
+
+As a driver, I want to register my account and vehicle so that I can manage my parking reservations.
+
+Acceptance: Validate required fields and duplicate email; save the vehicle against the correct account.
+
+**AUTH-02 / SCRUM-10: Phone Number SMS 2FA Verification — 3 SP**
+
+As a driver, I want to verify my phone number with an SMS code so that I can activate my account.
+
+Acceptance: Accept a valid unused code; reject invalid or expired codes and limit repeated attempts.
+
+**AUTH-03 / SCRUM-11: Operator Web Portal Login & Role Access — 3 SP**
+
+As an operator, I want to log in with my assigned role so that I can access permitted facility functions.
+
+Acceptance: Authenticate the operator; reject requests outside the assigned role and facility.
+
+**AUTH-04 / SCRUM-12: Forgot Password Email Recovery Link — 2 SP**
+
+As a user, I want to recover my password through an email link so that I can regain access securely.
+
+Acceptance: Issue a single-use expiring reset link without revealing whether an account exists; invalidate used links.
+
+**AUTH-05 / SCRUM-13: Modify Employee Access Permissions & Revoke Accounts — 5 SP**
+
+As an administrator, I want to modify or revoke employee permissions so that I can limit access to authorized staff.
+
+Acceptance: Apply server-side role changes; deny revoked access on the next protected request and record the change.
+
+**AUTH-06 / SCRUM-14: OAuth 2.0 / JWT API Token Authentication — 5 SP**
+
+As a user, I want the system to verify my access so that other people cannot use my account data without permission.
+
+Acceptance: Validate token signature, expiry and intended audience; reject expired or invalid tokens.
+
+#### UI - Driver & Operator — 16 Stories / 54 Points
+
+**UI-01 / SCRUM-15: Interactive GPS Garage Search Map — 5 SP**
+
+As a driver, I want to search a map of nearby garages so that I can locate participating parking.
+
+Acceptance: Request location consent; display sample facilities in Sprint 1 and explain denied permission or network failure.
+
+**UI-02 / SCRUM-16: Garage Detail Cards (Rates, Capacity, ADA, EV) — 3 SP**
+
+As a driver, I want to view facility details so that I can compare capacity, rates and parking types.
+
+Acceptance: Display rates, hours, ADA/EV options and height restrictions; identify stale or unavailable occupancy.
+
+**UI-03 / SCRUM-17: Spot Reservation Checkout Screen — 3 SP**
+
+As a driver, I want to review a parking reservation at checkout so that I know the time, capacity hold and price.
+
+Acceptance: Validate arrival before departure; display the total and server-controlled hold expiry before payment.
+
+**UI-04 / SCRUM-18: Digital Wallet Saved Credit Cards Screen — 3 SP**
+
+As a driver, I want to use a saved payment method so that I can pay without re-entering card details.
+
+Acceptance: Display only provider references and masked card details; show declined or pending payment without confirmation.
+
+**UI-05 / SCRUM-19: Active Ticket Encrypted QR Pass Screen — 3 SP**
+
+As a driver, I want to display my active QR pass so that I can present a valid entry credential.
+
+Acceptance: Display the pass only for confirmed payment; show facility and validity period and reject canceled credentials at validation.
+
+**UI-06 / SCRUM-20: Turn-by-Turn Navigation Overlay to Garage Entrance — 1 SP**
+
+As a driver, I want to open directions to the garage entrance so that I can reach the correct facility.
+
+Acceptance: Pass the confirmed entrance coordinates to the supported mapping service; show address if routing is unavailable.
+
+**UI-07 / SCRUM-21: Active Session Screen with Extend Parking Button — 3 SP**
+
+As a driver, I want to view and extend my active session so that I can add permitted parking time.
+
+Acceptance: Display current end time; update it only after capacity and additional payment are confirmed.
+
+**UI-08 / SCRUM-22: Parking History List (Completed & Canceled Sessions) — 2 SP**
+
+As a driver, I want to view completed and canceled sessions so that I can review my parking history.
+
+Acceptance: Return only my own records; show status and payment/refund state without treating time expiry as vehicle exit.
+
+**UI-09 / SCRUM-23: Download PDF Receipt Button — 2 SP**
+
+As a driver, I want to download a receipt so that I can retain a payment record.
+
+Acceptance: Download the selected transaction PDF; prevent access to another driver's receipt.
+
+**UI-10 / SCRUM-24: Operator Facility Setup Dashboard — 5 SP**
+
+As an operator, I want to configure my facility so that drivers can find valid parking inventory.
+
+Acceptance: Create, read and update facility details; reject negative capacity and prevent deleting inventory with active bookings.
+
+**UI-11 / SCRUM-25: Visual Floor Grid Editor for Sensor Mapping — 8 SP**
+
+As an operator, I want to map sensors to floors and spaces so that occupancy corresponds to the correct inventory.
+
+Acceptance: Validate capacity and unique sensor mappings; distinguish Standard, Compact, EV and ADA inventory.
+
+**UI-12 / SCRUM-26: Rate Configuration UI for Base Hourly & Surge Rules — 5 SP**
+
+As an operator, I want to configure base rates and surge rules so that I can manage published parking prices.
+
+Acceptance: Validate configured limits; preview the rule and retain the price accepted for an existing reservation.
+
+**UI-13 / SCRUM-27: Attendant Manual Gate Override Screen — 3 SP**
+
+As an attendant, I want to request a manual gate override so that I can assist a driver whose valid entry fails.
+
+Acceptance: Require authorized access, plate and reason; show controller success or failure and record either result.
+
+**UI-14 / SCRUM-28: User Role Management Screen for System Admins — 3 SP**
+
+As an administrator, I want to manage employee roles so that I can grant or revoke permitted access.
+
+Acceptance: Display current role; validate changes and show the recorded administrative outcome.
+
+**UI-15 / SCRUM-29: Mobile Push Expiration Warning Banner (15 Mins) — 2 SP**
+
+As a driver, I want to see an expiration warning so that I can return to extend my session.
+
+Acceptance: Display the warning and end time; open the active session and handle disabled push permissions.
+
+**UI-16 / SCRUM-30: Real-time Header Occupancy Gauge Widget — 3 SP**
+
+As an operator, I want to view a current occupancy gauge so that I can recognize capacity and stale data.
+
+Acceptance: Display last update time; flag telemetry older than 60 seconds and avoid reporting it as current.
+
+#### Backend Processes — 16 Stories / 77 Points
+
+**BE-01 / SCRUM-31: 5-Minute Database Concurrency Hold Lock — 5 SP**
+
+As a driver, I want my reservation held during checkout so that another driver cannot book the same parking capacity.
+
+Acceptance: Enforce capacity in one database transaction; expire the five-minute hold exactly once and reject overbooking under concurrency.
+
+**BE-02 / SCRUM-32: Stripe Payment API Tokenization & Charge Processing — 8 SP**
+
+As a driver, I want to have my payment processed once so that a timeout does not produce a duplicate charge.
+
+Acceptance: Use Stripe tokens instead of saving card details; check uncertain payment results before retrying with the same idempotency key, and confirm parking capacity before issuing a pass.
+
+**BE-03 / SCRUM-33: Cryptographic QR Token Generation Daemon — 3 SP**
+
+As a driver, I want a QR pass linked to my confirmed reservation so that I can enter the correct garage.
+
+Acceptance: Bind a cryptographically protected credential to reservation, facility and validity; reject tampering, replay and unpaid reservations.
+
+**BE-04 / SCRUM-34: Optical QR Scanner Payload & Gate Barrier Relay Trigger — 8 SP**
+
+As a driver, I want to scan my QR pass at the gate so that I can enter the garage I booked.
+
+Acceptance: Validate credential and arrival window; send an idempotent command and confirm the controller result before check-in.
+
+**BE-05 / SCRUM-35: Reservation Check-In Status Update & Inventory Decrement — 3 SP**
+
+As an operator, I want to record entry and update occupancy so that the session reflects confirmed entry.
+
+Acceptance: Move Reserved to Checked-In once; update physical occupancy without subtracting the same reserved capacity twice.
+
+**BE-06 / SCRUM-36: IoT Floor Sensor Telemetry Ingestion (MQTT/HTTP) — 8 SP**
+
+As an operator, I want to receive updates from parking sensors so that the availability shown matches what is happening in the garage.
+
+Acceptance: Validate device identity and event ordering; deduplicate messages and flag telemetry older than 60 seconds.
+
+**BE-07 / SCRUM-37: Incremental Rate Calculation & Secondary Extension Charge — 5 SP**
+
+As a driver, I want to reserve and pay for additional time so that my session can extend safely.
+
+Acceptance: Atomically validate extension capacity; charge once and retain the original end time if extension fails.
+
+**BE-08 / SCRUM-38: Grace Period Expiration Cron Daemon — 5 SP**
+
+As an operator, I want to identify reservations past their arrival grace period so that unused bookings can expire.
+
+Acceptance: Use the configured grace period; exclude checked-in sessions and resolve simultaneous check-in versus expiration atomically.
+
+**BE-09 / SCRUM-39: Expired Reservation Inventory Release Daemon — 3 SP**
+
+As an operator, I want to release unused reserved capacity so that the same inventory can be booked again.
+
+Acceptance: Release a qualifying expired reservation once; retain the payment record. Confirm the no-show and refund policy before applying any financial adjustment.
+
+**BE-10 / SCRUM-40: APNs/FCM Expiration Warning Push Notification Service — 3 SP**
+
+As a driver, I want to receive a warning before session expiry so that I have time to act.
+
+Acceptance: Queue the alert 15 minutes before expiry; submit within 60 seconds and log acceptance separately from device delivery.
+
+**BE-11 / SCRUM-41: Dynamic Pricing Occupancy Threshold Engine — 8 SP**
+
+As an operator, I want to evaluate occupancy pricing rules so that new quotes use the configured rate.
+
+Acceptance: Evaluate current permitted data; reject conflicting rules and preserve an accepted checkout quote during its hold.
+
+**BE-12 / SCRUM-42: Immutable Audit Logger for Manual Gate Overrides — 5 SP**
+
+As an operator, I want a record of each manual gate override so that I can review who opened the gate and why.
+
+Acceptance: Record authenticated employee, time, vehicle, facility, reason and outcome; prevent ordinary users from editing the log.
+
+**BE-13 / SCRUM-43: PDF Transaction Receipt Compilation Daemon — 3 SP**
+
+As a driver, I want to generate a PDF transaction receipt so that I can verify my payment.
+
+Acceptance: Include reservation, transaction, facility and charge breakdown; reconcile totals and label refunds separately.
+
+**BE-14 / SCRUM-44: License Plate String Sanitization & Input Validation — 2 SP**
+
+As a driver, I want to validate my vehicle information so that the correct vehicle is linked to my reservation.
+
+Acceptance: Normalize and validate input length and characters; reject malformed input without assuming one universal plate format.
+
+**BE-15 / SCRUM-45: Database Transaction Isolation & Consistency Maintenance — 5 SP**
+
+As an operator, I want reservation records to stay accurate when several people book at once so that we do not confirm conflicting reservations.
+
+Acceptance: Test rollback, timeout and duplicate-event cases; preserve confirmed records and reconcile unresolved payment states.
+
+**BE-16 / SCRUM-46: Administrative Permission Adjustment Audit Trailing — 3 SP**
+
+As an administrator, I want to audit permission changes so that access decisions remain traceable.
+
+Acceptance: Record actor, target, timestamp and before/after permission values; restrict access to the audit record.
+
+#### Reporting & Analytics — 10 Stories / 40 Points
+
+**REP-01 / SCRUM-47: Daily, Weekly, and Monthly Garage Revenue Reports — 5 SP**
+
+As a finance user, I want to view daily, weekly and monthly revenue so that I can review facility earnings.
+
+Acceptance: Filter by permitted facility and period; reconcile successful charges and refunds to the source ledger.
+
+**REP-02 / SCRUM-48: Hourly Floor Occupancy Heatmaps — 5 SP**
+
+As an operator, I want to view hourly floor occupancy heatmaps so that I can identify busy periods.
+
+Acceptance: Aggregate valid observations by facility-local time; display missing intervals rather than treating them as empty spaces.
+
+**REP-03 / SCRUM-49: Dataset CSV / Excel Export Engine — 3 SP**
+
+As a finance user, I want to export report data as CSV or Excel so that I can analyze it outside the portal.
+
+Acceptance: Match displayed filters and totals; restrict export to authorized data and neutralize spreadsheet formula input.
+
+**REP-04 / SCRUM-50: Financial Reconciliation Report (Stripe Fees vs Gross) — 5 SP**
+
+As a finance user, I want to reconcile Stripe fees and gross payments so that I can identify unmatched transactions.
+
+Acceptance: Separate gross charges, fees, refunds and net amount; identify unmatched records without inventing settlement results.
+
+**REP-05 / SCRUM-51: Peak Demand Utilization Analysis Report — 5 SP**
+
+As an operator, I want to analyze peak demand utilization so that I can review pricing and capacity decisions.
+
+Acceptance: Calculate utilization against configured capacity; exclude or label missing sensor intervals.
+
+**REP-06 / SCRUM-52: Gate Override Audit Log Report — 3 SP**
+
+As an operator, I want to review gate override logs so that I can investigate exceptional entry.
+
+Acceptance: Filter by date, employee and facility; include reason and controller outcome and enforce reporting permission.
+
+**REP-07 / SCRUM-53: No-Show & Expired Reservation Leakage Report — 3 SP**
+
+As an operator, I want to review no-shows and expired reservations so that I can understand unused inventory.
+
+Acceptance: Separate paid no-shows from unpaid hold expirations; show denominator and period for each rate.
+
+**REP-08 / SCRUM-54: Driver Monthly Parking Expenditure Summary Chart — 3 SP**
+
+As a driver, I want to view monthly parking expenditure so that I can understand my parking costs.
+
+Acceptance: Restrict totals to my transactions; show refunds separately and match the receipt history.
+
+**REP-09 / SCRUM-55: Offline Sensor Diagnostic Report — 5 SP**
+
+As an operator, I want to review offline sensor diagnostics so that I can identify equipment data gaps.
+
+Acceptance: List the sensor, its last update, and how long it was offline; label simulated test data separately from actual sensor records.
+
+**REP-10 / SCRUM-56: Active Session Stay Duration Analytics Report — 3 SP**
+
+As an operator, I want to analyze parking stay durations so that I can understand facility usage.
+
+Acceptance: Calculate completed stays from confirmed entry and exit times; leave out active sessions and sessions without a recorded exit.
+
+### 7.5 Individual Sprint Backlogs
+
+I divided the 12 weeks into six two-week sprints and kept the original Sprint 1 selection. The later sprints show how I would organize the remaining stories. I would adjust them after seeing how much work the team finishes. The last two sprints have fewer feature points because testing, fixes, and handover also take time.
+
+#### Sprint 1 — Smart Parking Foundation
+
+Dates: 09/14/2026–09/25/2026. Scope: 13 stories / 49 SP.
+
+Goal: Connect account access, sample-data search, reservation holds, test payments, and QR passes.
+
+| Proposed Lead | Stories |
+|---|---|
+| Carol | AUTH-01, AUTH-02, AUTH-03, BE-01, BE-02, BE-03, BE-14 |
+| Bob | AUTH-06 |
+| Dan | UI-01, UI-02, UI-03, UI-04, UI-05 |
+
+Other work: Review architecture and environments; test input validation, expired holds, and payment retries.
+
+#### Sprint 2 — Facility Setup and Data Integrity
+
+Dates: 09/28/2026–10/09/2026. Scope: 11 stories / 48 SP.
+
+Goal: Configure facilities and sensors, complete access management, and release expired reservations.
+
+| Proposed Lead | Stories |
+|---|---|
+| Carol | AUTH-04, AUTH-05, BE-08, BE-09, BE-15, BE-16 |
+| Dan | UI-06, UI-10, UI-11, UI-14 |
+| Frank | BE-06 |
+
+Other work: Check transaction consistency and confirm equipment access. Use simulated telemetry where hardware is unavailable, then plan the physical checks.
+
+#### Sprint 3 — Gate Entry and Session Management
+
+Dates: 10/12/2026–10/23/2026. Scope: 10 stories / 37 SP.
+
+Goal: Connect QR entry, live occupancy, extensions, receipts, and manual override.
+
+| Proposed Lead | Stories |
+|---|---|
+| Dan | UI-07, UI-08, UI-09, UI-13, UI-16 |
+| Frank | BE-04 |
+| Carol | BE-05, BE-07, BE-12, BE-13 |
+
+Other work: Test duplicate scans, failed gate commands, stale data, and permission checks. Resolve the vehicle-exit and refund questions before final acceptance.
+
+#### Sprint 4 — Pricing, Warnings, and Core Reports
+
+Dates: 10/26/2026–11/06/2026. Scope: 7 stories / 31 SP.
+
+Goal: Connect pricing rules, expiration warnings, revenue reports, occupancy heatmaps, and override reports.
+
+| Proposed Lead | Stories |
+|---|---|
+| Dan | UI-12, UI-15, REP-02 |
+| Carol | BE-10, BE-11, REP-01, REP-06 |
+
+Other work: Test accepted prices, alert timing, and report totals against the underlying records.
+
+#### Sprint 5 — Reconciliation and Operational Reports
+
+Dates: 11/09/2026–11/20/2026. Scope: 5 stories / 21 SP.
+
+Goal: Complete exports, payment reconciliation, demand analysis, no-show reporting, and sensor diagnostics.
+
+| Proposed Lead | Stories |
+|---|---|
+| Carol | REP-03, REP-04, REP-07 |
+| Dan | REP-05 |
+| Frank | REP-09 |
+
+Other work: Run security and performance checks, correct defects, and confirm holiday availability for the last sprint.
+
+#### Sprint 6 — Final Analytics and Release Review
+
+Dates: 11/23/2026–12/04/2026. Scope: 2 stories / 6 SP.
+
+Goal: Complete the remaining analytics and prepare the project for acceptance.
+
+| Proposed Lead | Stories |
+|---|---|
+| Dan | REP-08 |
+| Carol | REP-10 |
+
+Other work: Repeat required integration tests, review open defects, prepare deployment and rollback instructions, and complete the handover and maintenance proposal.
+
+Alice coordinates each sprint, Bob reviews technical decisions, and Grace checks acceptance results with the story leads. A story counts as finished after its acceptance checks pass, its code is reviewed, and its result is recorded in Jira. Finishing a screen is only part of the work. I also want to check that it works with the rest of the platform.
+
+I would update the existing Jira issues rather than create duplicates, preserve the current epic links, and add the later sprints after reviewing their assignments. I would then capture updated screenshots. Creating a sprint does not mean it has started or that its stories are complete.
+
 ## 8. Risk, Quality, and Communication Management
 
 In this section I looked at what could go wrong with the Smart Parking Platform, how I would check that everything works, and how we would keep everyone updated. I updated the communication plan to use the same six member team listed in Section 9 and picked some numbers to help measure the quality of the system.
@@ -513,7 +927,7 @@ In this section I looked at what could go wrong with the Smart Parking Platform,
 
 #### 8.1.1 Risk Management Strategy
 
-I dont want to only look at software bugs because this platform relies on more than just the app. If a sensor stops working, a payment doesnt go through or a Houston storm knocks out power, drivers still have a problem. So I looked at technical, operational, schedule, cost and weather risks. For each one I gave it a score, somebody to handle it and a plan. We can come back to the list whenever something changes.
+I don't want to only look at software bugs because this platform relies on more than just the app. If a sensor stops working, a payment doesn't go through or a Houston storm knocks out power, drivers still have a problem. So I looked at technical, operational, schedule, cost and weather risks. For each one I gave it a score, somebody to handle it and a plan. We can come back to the list whenever something changes.
 
 The four responses I would use are:
 
@@ -540,7 +954,7 @@ Probability is how likely I think something is to happen. Impact is how much tro
 | 4 | Likely | Major issue that could delay a milestone or affect reservations, payments or entry. |
 | 5 | Almost certain | Severe issue such as sensitive data exposure, serious transaction loss or a long disruption. |
 
-I grouped the scores into low (1 to 4), medium (5 to 9), high (10 to 16) and critical (17 to 25). Low is green, medium is yellow and both high and critical are red. I kept the scores in the chart so its still easy to tell them apart.
+I grouped the scores into low (1 to 4), medium (5 to 9), high (10 to 16) and critical (17 to 25). Low is green, medium is yellow and both high and critical are red. I kept the scores in the chart so it's still easy to tell them apart.
 
 | Probability / Impact | 1 | 2 | 3 | 4 | 5 |
 | --- | --- | --- | --- | --- | --- |
@@ -554,39 +968,43 @@ A critical risk needs attention right away. High risks should be handled before 
 
 #### 8.1.3 Risk Register
 
-I started each one as Open. As work continues, the status can change depending on whether we are working on it, watching it or have fixed the problem.
+I have kept all nine risks Open. Alice would record when each risk was reviewed, what action is needed, and whether its status has changed. The scores are my estimates of likelihood and impact. We would need actual results before saying a response worked.
 
 **RSK-01: Stripe payment outage or uncertain payment result**
 
 - Category: Technical / Financial
 - Probability: 2 | Impact: 5 | Score: 10, High (Red)
 - Owner: Carol Reed (Senior Backend Developer) | Strategy: Mitigation
-- Risk: Stripe could time out while someone is paying. If we dont know whether the payment went through, we also shouldnt tell the driver their parking is confirmed (UC-04).
-- Plan: First check the payment status before trying to charge the driver again. If we need to retry, use the same idempotency key so the retry doesnt create a second payment. When Stripe isnt responding, we should stop those checkouts and tell the driver the payment is pending or unavailable. Only give out the QR code after payment is confirmed. If too much time passes, check that parking is still available and refund through the normal process if it isnt.
+- Risk: Stripe could time out while someone is paying. If we don't know whether the payment went through, we also shouldn't tell the driver their parking is confirmed (UC-04).
+- Plan: First check the payment status before trying to charge the driver again. If we need to retry, use the same idempotency key so the retry doesn't create a second payment. When Stripe isn't responding, we should stop those checkouts and tell the driver the payment is pending or unavailable. Only give out the QR code after payment is confirmed. If too much time passes, check that parking is still available and refund through the normal process if it isn't.
+- Trigger and follow-up: A timeout, pending payment, or mismatch between Stripe and the reservation record triggers reconciliation before another charge or QR pass.
 
 **RSK-02: Parking sensor information is missing or outdated**
 
 - Category: Technical / Operational
 - Probability: 3 | Impact: 4 | Score: 12, High (Red)
 - Owner: Frank Ellis (Hardware & IoT Integration Specialist) | Strategy: Mitigation
-- Risk: The sensor could stop sending information and the app may still show a parking space as open when it really isnt (FR4, NFR5, NFR12).
-- Plan: Keep track of the last sensor update and try reconnecting if it stops. I would flag information that hasnt updated in 60 seconds. Until we can confirm a space is actually available, dont let drivers reserve it. The garage could provide a confirmed update when needed. Then compare the records before letting reservations start again, because just counting cars coming through the gate wont tell us which spaces are free.
+- Risk: The sensor could stop sending information and the app may still show a parking space as open when it really isn't (FR4, NFR5, NFR12).
+- Plan: Keep track of the last sensor update and try reconnecting if it stops. I would flag information that hasn't updated in 60 seconds. Until we can confirm a space is actually available, don't let drivers reserve it. The garage could provide a confirmed update when needed. Then compare the records before letting reservations start again, because just counting cars coming through the gate won't tell us which spaces are free.
+- Trigger and follow-up: No valid update for 60 seconds triggers the stale-data warning and stops bookings against unconfirmed capacity.
 
 **RSK-03: Two drivers reserve the same parking capacity**
 
 - Category: Technical / Data
 - Probability: 3 | Impact: 4 | Score: 12, High (Red)
 - Owner: Carol Reed (Senior Backend Developer) | Strategy: Mitigation
-- Risk: Two drivers could try to book the last available space at the same time, and both might end up thinking its theirs (FR6, NFR5, UC-03).
+- Risk: Two drivers could try to book the last available space at the same time, and both might end up thinking it's theirs (FR6, NFR5, UC-03).
 - Plan: The system needs to check availability and hold the space together, not as two separate steps where someone else could book between them. I would start with a five minute checkout hold and test what happens when multiple people book at once, refresh or retry. If the system finds two reservations for the same capacity, stop those reservations and check the database records. We should only free a hold after confirming it expired. A Redis lock might help, but the database still needs to enforce the limit.
+- Trigger and follow-up: A repeated capacity conflict or duplicate reservation triggers a review of the affected inventory and transaction records.
 
 **RSK-04: QR scanner or garage gate does not respond**
 
 - Category: Operational / Integration
 - Probability: 2 | Impact: 4 | Score: 8, Medium (Yellow)
 - Owner: Frank Ellis (Hardware & IoT Integration Specialist) | Strategy: Mitigation
-- Risk: A driver paid for parking and has a valid QR code, but the scanner wont read it or the gate doesnt open (UC-06).
-- Plan: Test normal QR codes, expired codes, incorrect codes and someone scanning the same code twice. If the gate doesnt open but the app and gate controller still work, an authorized attendant can use the manual override. We need to save who opened it, when, which vehicle and why (FR20). If the gate itself is broken or offline, the garage would use its own procedure.
+- Risk: A driver paid for parking and has a valid QR code, but the scanner won't read it or the gate doesn't open (UC-06).
+- Plan: Test normal QR codes, expired codes, incorrect codes and someone scanning the same code twice. If the gate doesn't open but the app and gate controller still work, an authorized attendant can use the manual override. We need to save who opened it, when, which vehicle and why (FR20). If the gate itself is broken or offline, the garage would use its own procedure.
+- Trigger and follow-up: A failed entry command triggers the documented fallback. If test equipment is unavailable before Sprint 3, Frank should notify Alice, use a simulator for early checks, and keep physical acceptance pending.
 
 **RSK-05: Expiration notification is not delivered**
 
@@ -594,7 +1012,8 @@ I started each one as Open. As work continues, the status can change depending o
 - Probability: 3 | Impact: 2 | Score: 6, Medium (Yellow)
 - Owner: Dan Brooks (Lead Mobile Developer) | Strategy: Mitigation, with remaining delivery risk accepted
 - Risk: A drivers warning about their parking time might not reach their phone (FR23, UC-15).
-- Plan: Record whether Apple or Firebase accepted the notification and retry failed alerts while there is still time. Drivers should also see their end time when they open the app. We could look at text messages later, but that would add cost and require consent. Sending a notification doesnt always mean somebody saw it.
+- Plan: Record whether Apple or Firebase accepted the notification and retry failed alerts while there is still time. Drivers should also see their end time when they open the app. We could look at text messages later, but that would add cost and require consent. Sending a notification doesn't always mean somebody saw it.
+- Trigger and follow-up: A rejected or late alert triggers a retry while the warning is still useful; the session end time remains visible in the app.
 
 **RSK-06: Houston weather causes a local power or internet outage**
 
@@ -603,22 +1022,25 @@ I started each one as Open. As work continues, the status can change depending o
 - Owner: Grace Bennett (QA & Security Engineer) | Strategy: Mitigation
 - Risk: Severe weather can affect garage power, connections, sensors and entry operations.
 - Plan: Watch for garages losing their connection. If a garage loses power or internet, stop new bookings there and let drivers know. Once service comes back, compare the parking and payment records before everything returns to normal. The garage would handle the gate and other physical problems using its own outage procedure.
+- Trigger and follow-up: Loss of the facility connection triggers a booking pause and contact with the garage operator.
 
 **RSK-07: A developer is unavailable during Sprint 1**
 
-- Category: Schedule / Resource
+- Category: Schedule / People
 - Probability: 3 | Impact: 3 | Score: 9, Medium (Yellow)
 - Owner: Alice Morgan (Project Manager) | Strategy: Mitigation
 - Risk: One missing team member could hold up several tasks that depend on their work.
 - Plan: I would keep the notes and Jira tasks updated so somebody else can pick up work if needed. For important tasks, more than one person should understand what is going on. If someone is out, we can move the work around and decide which lower priority stories can wait. After that, update our sprint estimates.
+- Trigger and follow-up: An absence affecting a dependent task triggers reassignment or a sprint-scope review. Alice should also check holiday coverage before committing the later sprints.
 
 **RSK-08: Cloud services and integrations cost more than expected**
 
 - Category: Financial / Scope
 - Probability: 3 | Impact: 3 | Score: 9, Medium (Yellow)
 - Owner: Alice Morgan (Project Manager) | Strategy: Mitigation / Avoidance
-- Risk: Cloud resources, maps, messages or extra reliability features could push costs beyond the approved budget.
-- Plan: Keep an eye on how much the cloud services, maps and messages are costing us. We should turn off testing resources we arent using and put optional features on hold if the costs get too high. Any extra spending would need to be checked against the budget before changing the plan.
+- Risk: Cloud resources, maps, messages or extra reliability features could push costs beyond the proposed budget.
+- Plan: Keep an eye on how much the cloud services, maps and messages are costing us. We should turn off testing resources we aren't using and put optional features on hold if the costs get too high. Any extra spending would need to be checked against the budget before changing the plan.
+- Trigger and follow-up: A forecast above the remaining direct budget triggers a spending review before using contingency. A new feature or integration also needs a cost and schedule review.
 
 **RSK-09: Unauthorized use of administrative access or gate overrides**
 
@@ -626,7 +1048,8 @@ I started each one as Open. As work continues, the status can change depending o
 - Probability: 2 | Impact: 5 | Score: 10, High (Red)
 - Owner: Carol Reed (Senior Backend Developer) | Strategy: Mitigation
 - Risk: An unauthorized person accesses administrator features or uses the manual gate override (NFR2, NFR13, UC-12, UC-13).
-- Plan: Check permissions on the server, not just by hiding a button in the app. Protect login information and keep a record of administrative actions. If someone tries to use a feature they shouldnt have access to, or we see an unusual gate override, limit access and investigate. Keep the logs so we can see what happened, then test the fix before allowing access again.
+- Plan: Check permissions on the server, not just by hiding a button in the app. Protect login information and keep a record of administrative actions. If someone tries to use a feature they shouldn't have access to, or we see an unusual gate override, limit access and investigate. Keep the logs so we can see what happened, then test the fix before allowing access again.
+- Trigger and follow-up: An unauthorized request or unexplained override triggers access restriction, log review, and escalation to Alice and Grace.
 
 I would go back through the risks every week and at the end of each sprint. If one of these things actually happens, it becomes an issue we need to work on, not just something sitting on the risk list.
 
@@ -643,13 +1066,13 @@ Pull requests should run automatic checks too. For database changes, test them i
 For quality control, I would go through the features in the SRS and see if they work the way we described. My main tests would be:
 
 1. Driver process: Start with someone making an account, finding parking, reserving, paying and getting their QR code. Then test whether the code lets them check in. This covers the payment in UC-04 and entry in UC-06.
-2. Payment and reservation problems: Have multiple people try to reserve at once. Test expired holds, payment retries, duplicated responses and payments we cant immediately confirm. The number of spaces, reservations and payments should all match.
+2. Payment and reservation problems: Have multiple people try to reserve at once. Test expired holds, payment retries, duplicated responses and payments we can't immediately confirm. The number of spaces, reservations and payments should all match.
 3. Sensors, gates and permissions: Try disconnecting the sensors, sending different gate responses and having users open features outside their role. Check whether the logs record the right information. A simulator can help before we have access to the actual equipment.
 4. Speed: Have lots of users search for parking at once. Record how many were using the system, how long the test lasted, how fast the searches were and whether any failed.
 
 #### 8.2.3 Quality Targets
 
-I picked a few numbers so we can tell whether the system is meeting the quality goals, instead of just saying it should be fast or reliable.
+I picked a few numbers so we can tell whether the system is meeting the quality goals, instead of just saying it should be fast or reliable. These are proposed test targets, including the 99.99% availability goal, not achieved results or a contracted service guarantee.
 
 **Availability (NFR18)**
 
@@ -667,7 +1090,7 @@ I picked a few numbers so we can tell whether the system is meeting the quality 
 
 **Payment data protection (NFR6-NFR7)**
 
-- Goal: Dont save full card numbers or security codes in the database or logs. Use Stripe payment references and a secure HTTPS connection.
+- Goal: Don't save full card numbers or security codes in the database or logs. Use Stripe payment references and a secure HTTPS connection.
 - Before release, check what the app saves and what shows up in logs. Review the payment security requirements too.
 - Responsible: Carol Reed (Senior Backend Developer).
 
@@ -680,7 +1103,7 @@ I picked a few numbers so we can tell whether the system is meeting the quality 
 **Gate authorization and audit records (FR19-FR20, NFR2, NFR13)**
 
 - Goal: Block every test where someone without permission tries to open the gate. For every approved override, save who did it, when, the vehicle and the reason.
-- Test with people who should have access and people who shouldnt, including after any role changes.
+- Test with people who should have access and people who shouldn't, including after any role changes.
 - Responsible: Frank Ellis (Hardware & IoT Integration Specialist).
 
 **Parking expiration warning (FR23, UC-15)**
@@ -689,7 +1112,7 @@ I picked a few numbers so we can tell whether the system is meeting the quality 
 - Test the alerts before each release, including what happens when the provider is down. Keep track of accepted and rejected alerts and whether they reached a device.
 - Responsible: Dan Brooks (Lead Mobile Developer).
 
-Before we release anything, I would make sure the required tests pass and we save the results. I wouldnt release a feature that lets the wrong person open a gate, charges a driver incorrectly or gives someone parking they cant actually use. Smaller bugs can be reviewed with the project manager and product owner to decide what gets fixed now.
+Before we release anything, I would make sure the required tests pass and we save the results. I wouldn't release a feature that lets the wrong person open a gate, charges a driver incorrectly or gives someone parking they can't actually use. Smaller bugs can be reviewed with the project manager and product owner to decide what gets fixed now.
 
 ### 8.3 Communication Management Plan
 
@@ -709,9 +1132,11 @@ The team is Alice (PM), Bob (Architect), Carol (Backend), Dan (Mobile), Frank (I
 
 #### 8.3.2 Different Updates for Different People
 
-I dont think everyone needs the same update. If Stripe stops taking payments, the sponsor would probably want to know if drivers can still book, if money is being affected and whether our schedule changes. Whoever is fixing it needs the actual error, what failed, and what we have already tried. Its the same problem, but different people need different details. We should write down decisions in Jira or Teams so we arent looking through old messages later.
+I don't think everyone needs the same update. If Stripe stops taking payments, the sponsor would probably want to know if drivers can still book, if money is being affected and whether our schedule changes. Whoever is fixing it needs the actual error, what failed, and what we have already tried. It's the same problem, but different people need different details. We should write down decisions in Jira or Teams so we aren't looking through old messages later.
 
 #### 8.3.3 Communication Schedule
+
+This is the communication schedule I would use. The urgent-response target applies during agreed working hours, so the team would still need to decide how to handle problems outside those hours.
 
 | Activity | When | Channel | Responsible | Audience and purpose |
 | --- | --- | --- | --- | --- |
@@ -759,6 +1184,21 @@ Dan Brooks will handle the mobile application and the interfaces drivers will us
 Frank Ellis will be responsible for the hardware and IoT software integration. His work involves connecting the platform to supported parking sensors, QR scanners, and gate controllers, as well as verifying that information is being communicated correctly. Frank's responsibilities are specifically related to the software interfaces and making sure they work with the external hardware.
 Grace Bennett is assigned as the QA and Security Engineer. She will review the application's functionality, identify defects, and conduct security and performance testing throughout development. Testing should not be something the team waits to do at the end, especially with the reservation and payment functions. 
 
+#### 9.1.2 Percentage Allocations
+
+I calculated each person's allocation against 12 weeks at 40 hours per week, or 480 available hours. This shows the share of that person's time assigned to the project, not their share of the total project hours. Actual availability still needs confirmation.
+
+| Team Member | Project Hours | Average Hours per Week | Allocation |
+|---|---:|---:|---:|
+| Alice Morgan | 120 | 10.00 | 25.00% |
+| Bob Carter | 100 | 8.33 | 20.83% |
+| Carol Reed | 240 | 20.00 | 50.00% |
+| Dan Brooks | 220 | 18.33 | 45.83% |
+| Frank Ellis | 140 | 11.67 | 29.17% |
+| Grace Bennett | 120 | 10.00 | 25.00% |
+
+The total remains 940 hours. Those hours include meetings, reviews, testing, and handover, not just development.
+
 ### 9.2 Responsibility Assignment Matrix
 
 The RACI matrix will be used to identify who is completing each major deliverable and who has final accountability for it. 
@@ -782,6 +1222,9 @@ The RACI matrix will be used to identify who is completing each major deliverabl
 | Security Audit and Compliance Review | I | C | R | C | C | A/R |
 | Quality and Performance Testing | I | C | R | R | R | A/R |
 | Deployment and CI/CD | I | A | R | C | C | R |
+| Operator Portal and Reports | I | A | R | R | C | C |
+| Schedule, Budget, Risks, and Changes | A/R | C | C | C | C | C |
+| Closure, Handover, and Maintenance Proposal | A/R | R | C | C | C | C |
 
 #### 9.2.2 Coordination of Responsibilities
 
@@ -867,7 +1310,7 @@ The $62,400 will be used as the initial budget baseline for tracking project per
 
 #### 9.4.2 Monthly Cash Flow Schedule
 
-The project is planned for 12 weeks, with costs divided across three months. These are proposed cost-planning periods. The exact weeks and expenses still need to be checked against the dated Gantt chart in Section 6; the table does not establish new milestone dates.
+The project is planned for 12 weeks. Month 1, Month 2, and Month 3 below mean three four-week planning periods, rather than calendar months: September 14–October 9, October 12–November 6, and November 9–December 4. They match the schedule in Section 6. The amounts are planned costs, not recorded spending.
 
 | Expense Category | Month 1 | Month 2 | Month 3 | Total |
 |---|---:|---:|---:|---:|
@@ -876,17 +1319,29 @@ The project is planned for 12 weeks, with costs divided across three months. The
 | **Monthly Total** | **$19,000** | **$26,000** | **$17,400** | **$62,400** |
 | **Cumulative Total** | **$19,000** | **$45,000** | **$62,400** | — |
 
+The proposed hours below explain how the labor estimate fits those periods. Applying the existing hourly rates gives $18,000, $24,400, and $16,000 in labor costs.
+
+| Team Member | Month 1 Hours | Month 2 Hours | Month 3 Hours | Total |
+|---|---:|---:|---:|---:|
+| Alice Morgan | 38 | 40 | 42 | 120 |
+| Bob Carter | 60 | 20 | 20 | 100 |
+| Carol Reed | 60 | 115 | 65 | 240 |
+| Dan Brooks | 75 | 100 | 45 | 220 |
+| Frank Ellis | 15 | 65 | 60 | 140 |
+| Grace Bennett | 35 | 55 | 30 | 120 |
+| Total | 283 | 395 | 262 | 940 |
+
 **Month 1 — Planning and Architecture**
 
 Alice and Bob will focus on planning, system architecture, and database design. Carol and Dan will begin setting up the backend and mobile application.
 
 **Month 2 — Core Development**
 
-Most of the development will happen during Month 2, which is why it has the highest cost. Carol and Dan will work on reservations, payments, and mobile features, while Frank begins the hardware integration.
+Month 2 has the highest planned labor cost. Carol and Dan will connect and test the reservation, payment, and session features started in Month 1. Frank will connect garage entry and live occupancy after the initial sensor setup.
 
 **Month 3 — Integration and Testing**
 
-Frank and Grace will focus on hardware integration, security, and testing. The remaining work will include fixing defects and preparing the system for deployment.
+Frank and Grace will finish the hardware checks, security review, and testing. The remaining work includes the last reports, defect fixes, deployment preparation, and handover.
 
 ### 9.5 Earned Value Management (EVM)
 
@@ -923,7 +1378,7 @@ For our project:
 
 **EAC = $62,400 / CPI**
 
-This allows us to estimate the final cost based on current spending. The calculations will be made once actual project data is available.
+This estimates the final cost if spending continues at the same rate compared with completed work. I would calculate EV from the budget assigned to work that has been accepted, rather than convert story points into dollars. I will calculate these measures once completed-work and spending records are available. If the denominator is zero, the ratio cannot be calculated yet.
 
 #### 9.5.3 Performance Monitoring and Corrective Actions
 
@@ -932,7 +1387,7 @@ Alice will review the project's SPI and CPI every two weeks.
 | Status | SPI / CPI | Action |
 |---|---|---|
 | Green | Both ≥ 0.95 | Continue as planned |
-| Yellow | Either 0.85–0.94 | Review delays, costs, and resources |
+| Yellow | Either ≥ 0.85 and < 0.95, with neither below 0.85 | Review delays, costs, and resources |
 | Red | Either below 0.85 | Investigate the problem and create a recovery plan |
 
 For example, if backend development is delayed, Alice will review the affected tasks with Carol and Bob to determine what needs to change. If spending is higher than expected, we will review expenses before approving additional funds.
@@ -963,14 +1418,14 @@ I used the Power–Interest Grid to organize stakeholders based on how much infl
 
 | Power / Interest | Low Interest | High Interest |
 |---|---|---|
-| **High Power** | **Keep Satisfied:** Course Instructor, City Regulators, External Service Providers | **Manage Closely:** Executive Management, Project Sponsor, Project Manager, Garage Owners |
+| **High Power** | **Keep Satisfied:** City Regulators, External Service Providers | **Manage Closely:** Course Instructor, Executive Management, Project Sponsor, Project Manager, Garage Owners |
 | **Low Power** | **Monitor:** Surrounding Community, General Public | **Keep Informed:** Drivers, Garage Attendants, Development Team |
 
 Not everyone needs the same kind of updates. Executive management and the project sponsor will want to know how the budget, schedule, and major risks are looking. Drivers are more concerned about whether they can actually find parking, make a payment, and enter the garage without problems.
 
 For communication, I would follow the plan from Section 8. Management would receive weekly progress updates, developers would have regular check-ins, and garage operators would be involved when we need their input on facility requirements or equipment integration.
 
-I would also revisit the grid if new stakeholders become involved or someone's influence over the project changes.
+For this course project, I placed the instructor under Manage Closely because the instructor evaluates the assignment and receives course updates. The other placements are planning assumptions; I would revisit the grid if a stakeholder's involvement or influence changes.
 
 ### 10.2 Project Charter
 
@@ -985,13 +1440,13 @@ The Project Charter explains why we're developing the Smart Parking Platform, wh
 | Project Goal | Develop a mobile app and operator portal that connect parking availability, reservations, Stripe payments, QR entry, and garage management. |
 | Project Scope | The 15 use cases from Section 5, including driver functions, facility operations, and automated services. |
 | Out of Scope | Physical hardware manufacturing and maintenance, municipal ticket enforcement, and valet staffing. |
-| Project Duration | 12 weeks |
+| Project Duration | 12 weeks; September 14–December 4, 2026 planning scenario |
 | Final Delivery Target | December 4, 2026 |
 | Direct Project Budget | $62,400 |
 | Contingency Reserve | $7,488 |
 | Total Proposed Funding | $69,888 |
 
-The project will follow the schedule and milestones from Section 6. These dates are planning targets, and the actual progress will need to be checked in Jira. Alice will be responsible for managing the schedule, budget, and resources, while major changes to the project will need approval from executive management.
+The sponsor would need to approve this charter before authorizing the project. The schedule and milestones are in Section 6, and I would use Jira to compare actual progress with those targets. Alice will be responsible for managing the schedule, budget, and resources, while major changes to the project will need approval from executive management.
 
 I also want to make sure we're not measuring success only by whether the project is finished on time. The platform needs to work properly. That means drivers shouldn't be charged twice, parking availability needs to be accurate, and garage entry needs to be secure. The quality targets from Section 8 will help us measure that.
 
@@ -1012,7 +1467,7 @@ The Team Charter explains how our team plans to work together. We will use the s
 
 #### 10.3.2 Team Agreements
 
-Our team will use Agile and Scrum to organize the work. We plan to work in two-week sprints, have 15-minute daily check-ins through Microsoft Teams, and use Jira to keep track of assignments and progress. GitHub will be used for code changes and reviews.
+Our team will use Agile and Scrum to organize the work. We plan to work in six two-week sprints, have 15-minute daily check-ins through Microsoft Teams, and use Jira to keep track of assignments and progress. GitHub will be used for code changes and reviews.
 
 I think one of the most important things is that everyone communicates when something isn't going as planned. If Carol is having problems with payment processing, Dan needs to know because it could affect the mobile checkout process. The same goes for Frank's garage integrations and Grace's testing.
 
@@ -1036,22 +1491,43 @@ Overall, I want the team to have clear responsibilities, communicate with each o
 
 For this project, I planned a Smart Parking Platform where drivers could find parking, reserve it, pay, and use a QR code to enter the garage. Operators would have a portal to manage their facilities.
 
-I completed the requirements and project planning sections, including the backlog, schedule, risks, budget, and team responsibilities. The proposed funding is $69,888 including contingency. This closes the planning portion, since development and testing havent been confirmed yet.
+I completed the requirements and project planning sections, including the backlog, schedule, risks, budget, and team responsibilities. The proposed funding is $69,888 including contingency. This closes the planning portion, since development and testing haven't been confirmed yet.
 
 ### 11.2 Achievements and Shortfalls
 
 I think the main achievement was getting the different parts organized into a plan. I documented 15 use cases and created a Jira backlog with 48 stories. I also assigned responsibilities and looked at problems like failed payments, outdated sensor information, and gate failures.
 
-The shortfall is that I can't compare the plan to actual results yet. Sprint 1 hasn't started, so the 49 points are only an estimate. The schedule needs another look too, along with details about refunds, vehicle exit, and completing a parking session.
+The shortfall is that I can't compare the plan to actual results yet. My Jira screenshots show Sprint 1 before it started, so the 49 points are still an estimate. I updated the schedule and planned the later sprints, but I still need to check progress in Jira. The team also needs to agree on refunds, how vehicle exits are recorded, and when a parking session counts as complete. Bob and Carol would review those questions with the garage operator and write down the decisions.
 
 ### 11.3 Lessons Learned
 
 One thing I learned was how a feature that sounds simple can involve several other things. Taking a payment, for example. We also need to know what happens if it times out, if the driver retries, or if the reservation hold expires.
 
-I also realized that having the app work doesn't mean the whole process works. If someone pays but cant get through the gate, they still have a problem. That is something I would test early.
+I also realized that having the app work doesn't mean the whole process works. If someone pays but can't get through the gate, they still have a problem. That is something I would test early. My FBI Virtual Case File post-mortem reinforced the same lesson: activity does not prove that a feature works. Requirements, changes, and acceptance results need regular review.
 
 ### 11.4 Recommendations for Future Projects
 
 Next time, I would plan to start smaller and test the full process at one garage before adding more features. I would also get garage operators involved earlier, because some things are easier to understand when the people using the equipment explain them.
 
 The estimates helped me get started, but I would use actual sprint results and expenses to adjust the plan as we go. Overall, the planning gives us a starting point. There is still work to review before treating the platform as ready for development.
+
+### 11.5 Proposed Maintenance Contract
+
+I would propose a three-month maintenance agreement after the platform passes acceptance and the garage agrees to the handover. This would give us time to monitor the system and address problems before considering more facilities. It is a proposal, not an existing contract, and it is separate from the $69,888 project funding.
+
+| Item | Proposal |
+|---|---|
+| Included work | Correct defects, review security updates, monitor payments and sensor connections, check backups, and provide a monthly support report. |
+| Coverage | Monday–Friday, 9 a.m.–5 p.m. Central Time, excluding agreed holidays. No 24-hour support is included. |
+| Response target | Acknowledge a payment or entry incident within two coverage hours and provide an initial action plan that day. Review routine requests within two business days. Resolution depends on the cause and any outside provider. |
+| Responsibilities | Alice coordinates support; Bob reviews technical changes; Carol, Dan, and Frank address their components; Grace checks fixes before release. The garage maintains physical equipment and provides an on-site contact. |
+| Exclusions | New features, additional facilities, physical hardware repairs, and services beyond the agreed allowance require a separate estimate. |
+| Review and handover | Review service records monthly. At the end of the term, renew by agreement or hand over current documentation, open issues, and authorized access. |
+
+The proposed monthly fee is **$2,500**, or **$7,500 for three months**. Thirty support hours would include Alice 2 hours, Bob 3, Carol 10, Dan 5, Frank 4, and Grace 6. At the existing rates, labor is $1,870. A $400 service allowance and $230 reserve bring the monthly estimate to $2,500. Hours beyond the allowance need approval before work begins.
+
+I would consider scaling after reviewing actual demand, support workload, and test results from the first garage. Adding facilities would need another scope, equipment review, and cost estimate rather than using the maintenance fee to cover new development.
+
+### 11.6 Final Review and Handover
+
+Before handing over the platform, I would review the test results and any remaining issues with the team and garage operator. The handover would include instructions for managing reservations, checking payments, responding to gate failures, and contacting support. Any unresolved issue should have an assigned owner and a clear next step. The sponsor and garage operator would then review whether the platform meets the agreed requirements before accepting it. At this stage, I have completed the project plan; development, testing, and operational acceptance still need to be confirmed.
